@@ -1,0 +1,29 @@
+<div class="image">
+  <div class="container">
+    <div class="d-flex justify-content-center">
+      <mat-card class="col-xs-8 col-md-7 mat-elevation-z4">
+        <mat-card-content>
+          <div>
+            <h4 class="col text-center">Obrigado Por Registrar</h4>
+          </div>
+
+          <form #verify="ngForm" (ngSubmit)="onSubmit()" *ngIf="authService.userData as user">
+            <div>
+              <p class="text-center">Nós enviamos um email de confirmação para <strong>{{user.email}}</strong>.</p>
+              <p class="text-center">Por favor, olhe seu email e click no link para verificar o email.</p>
+            </div>
+
+            <div class="row m-1">
+              <button mat-raised-button class="col text-center" color="warn"
+                [disabled]="!verify.form.valid">Reenviar</button>
+            </div>
+          </form>
+
+          <div class="row m-1">
+            <button mat-raised-button class="col text-center" color="primary" routerLink="/sign-in">Voltar</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
