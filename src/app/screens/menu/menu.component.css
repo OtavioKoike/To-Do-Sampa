@@ -1,0 +1,33 @@
+.menu-spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  background-color: #141414;
+  font-family: 'Times New Roman', Times, serif;
+  align-items: center;
+}
+
+.logo {
+  color: #E50914;;
+  font-family: 'Arial Black', Times;
+  font-size: 30px;
+  margin-left: 5px;
+}
+
+.menu {
+  color: #aaa;
+}
+
+mat-toolbar mat-toolbar-row div a {
+  text-decoration: none;
+  color: #aaa;
+  margin-right: 10px;
+}
+
+/* Evento */
+mat-toolbar mat-toolbar-row div a:hover {
+  color: #fff;
+}
+
+
