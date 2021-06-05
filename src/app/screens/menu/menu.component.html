@@ -14,6 +14,7 @@
         <a href="#" mat-button>Bares</a>
         <a href="#" mat-button>Viagens</a>
         <a href="#" mat-button>Festas</a>
+        <a href="#" mat-button>Calendario</a>
       </div>
       <a class="icon" href="#" mat-button (click)="SignOut()"><mat-icon>account_circle</mat-icon></a>
     </mat-toolbar-row>
@@ -31,6 +32,8 @@
         <a (click)="sidenav.toggle()" routerLink="home" mat-list-item><mat-icon>map</mat-icon>Viagens</a>
         <mat-divider></mat-divider>
         <a (click)="sidenav.toggle()" routerLink="home" mat-list-item><mat-icon>celebration</mat-icon>Festas</a>
+        <mat-divider></mat-divider>
+        <a (click)="sidenav.toggle()" routerLink="home" mat-list-item><mat-icon>event</mat-icon>Calendario</a>
         <mat-divider></mat-divider>
       </mat-nav-list>
     </mat-sidenav>
