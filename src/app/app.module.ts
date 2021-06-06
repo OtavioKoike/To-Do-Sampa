@@ -28,16 +28,18 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 
+//Service
+import { AuthService } from './services/auth.service';
+import { HomeComponent } from './screens/home/home.component';
+import { MenuComponent } from './screens/menu/menu.component';
+
 // Componentes
 import { SignInComponent } from './screens/Login/sign-in/sign-in.component';
 import { SignUpComponent } from './screens/Login/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './screens/Login/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './screens/Login/verify-email/verify-email.component';
-
-//Service
-import { AuthService } from './services/auth.service';
-import { HomeComponent } from './screens/home/home.component';
-import { MenuComponent } from './screens/menu/menu.component';
+import { SliderComponent } from './screens/home/slider/slider.component';
+import { SliderItemDirective } from './screens/home/slider/slider-item.directive';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { MenuComponent } from './screens/menu/menu.component';
     VerifyEmailComponent,
     HomeComponent,
     MenuComponent,
+    SliderComponent,
+    SliderItemDirective
   ],
   imports: [
     BrowserModule,

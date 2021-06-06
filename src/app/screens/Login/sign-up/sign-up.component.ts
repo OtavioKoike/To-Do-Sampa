@@ -23,7 +23,7 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    var users$: Observable<User[]> = this.authService.getUserData(form.value.username).valueChanges({ idField: 'id' })
+    var users$: Observable<User[]> = this.authService.getUserData(form.value.username).valueChanges()
     users$.subscribe(user => {
       if(user.length === 0){
         this.authService.SignUp(this.user, form.value.userPassword);
