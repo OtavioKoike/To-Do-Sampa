@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
@@ -28,11 +28,15 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 //Service
 import { AuthService } from './services/auth.service';
 import { HomeComponent } from './screens/home/home.component';
 import { MenuComponent } from './screens/menu/menu.component';
+import { PlacesService } from './services/places.service';
 
 // Componentes
 import { SignInComponent } from './screens/Login/sign-in/sign-in.component';
@@ -42,6 +46,7 @@ import { VerifyEmailComponent } from './screens/Login/verify-email/verify-email.
 import { SliderComponent } from './screens/home/slider/slider.component';
 import { SliderItemDirective } from './screens/home/slider/slider-item.directive';
 import { CategoriasComponent } from './screens/home/categorias/categorias.component';
+import { LugaresCadastroComponent } from './screens/lugares-cadastro/lugares-cadastro.component';
 
 @NgModule({
   declarations: [
@@ -54,13 +59,15 @@ import { CategoriasComponent } from './screens/home/categorias/categorias.compon
     MenuComponent,
     SliderComponent,
     SliderItemDirective,
-    CategoriasComponent
+    CategoriasComponent,
+    LugaresCadastroComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
@@ -74,9 +81,14 @@ import { CategoriasComponent } from './screens/home/categorias/categorias.compon
     MatListModule,
     MatBadgeModule,
     FlexLayoutModule,
-
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    PlacesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

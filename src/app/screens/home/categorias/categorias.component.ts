@@ -1,6 +1,6 @@
-import { PostService } from './../../../services/post.service';
+import { PlacesService } from '../../../services/places.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { Post } from 'src/app/model/post';
+import { Place } from 'src/app/model/place';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -12,15 +12,15 @@ export class CategoriasComponent implements OnInit {
 
   @Input() categoria: string;
 
-  lugares$: Observable<Post[]>;
-  lugares: Post[];
+  lugares$: Observable<Place[]>;
+  lugares: Place[];
 
   constructor(
-    private postService: PostService
+    private placesService: PlacesService
   ) { }
 
   ngOnInit(): void {
-    this.lugares$ = this.postService.get(this.categoria).valueChanges({idField : 'id'});
+    this.lugares$ = this.placesService.get(this.categoria).valueChanges({idField : 'id'});
     this.lugares$.subscribe(lugares => {
       this.lugares = lugares;
       console.log(lugares)

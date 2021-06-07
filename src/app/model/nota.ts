@@ -1,5 +1,5 @@
 export interface Nota {
-  author: String;
+  author: string;
   value: number;
-  description: String;
+  description: string;
 }

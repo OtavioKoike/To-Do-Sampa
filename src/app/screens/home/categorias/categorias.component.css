@@ -14,3 +14,10 @@ p {
 [appSliderItem] {
   flex-shrink: 0;
 }
+
+h5 {
+  color: white;
+  font-weight: 900;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #000;
+}
