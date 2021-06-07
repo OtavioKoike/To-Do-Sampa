@@ -2,12 +2,12 @@
   <div class="slides" #slides>
     <ng-content select="[appSliderItem]" #sliderItem></ng-content>
   </div>
-  <div class="controls">
-    <button (click)="onClickLeft()" class="carousel-control-prev d-none d-md-block" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" >
+  <div class="controls bg-warning">
+    <button (click)="onClickLeft()" class="d-none d-md-block previous" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" >
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button  (click)="onClickRight()" class="carousel-control-next d-none d-md-block" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <button  (click)="onClickRight()" class="d-none d-md-block next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>

@@ -1,6 +1,6 @@
 .slider-container {
   display: flex;
-  flex-direction: column
+  // flex-direction: column
 }
 
 .slides {
@@ -20,8 +20,22 @@
 .controls {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
-.controls button {
-  height: 100%;
+.controls .previous {
+  position: absolute;
+  left: 50px;
+  height: 30%;
+  background-color: aqua;
+  background-color: transparent;
+  border: none;
+}
+
+.controls .next {
+  position: absolute;
+  right: 50px;
+  height: 30%;
+  background-color: transparent;
+  border: none;
 }
