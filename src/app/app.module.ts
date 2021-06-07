@@ -27,6 +27,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
+import {MatBadgeModule} from '@angular/material/badge';
 
 //Service
 import { AuthService } from './services/auth.service';
@@ -40,6 +41,7 @@ import { ForgotPasswordComponent } from './screens/Login/forgot-password/forgot-
 import { VerifyEmailComponent } from './screens/Login/verify-email/verify-email.component';
 import { SliderComponent } from './screens/home/slider/slider.component';
 import { SliderItemDirective } from './screens/home/slider/slider-item.directive';
+import { CategoriasComponent } from './screens/home/categorias/categorias.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { SliderItemDirective } from './screens/home/slider/slider-item.directive
     HomeComponent,
     MenuComponent,
     SliderComponent,
-    SliderItemDirective
+    SliderItemDirective,
+    CategoriasComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,9 @@ import { SliderItemDirective } from './screens/home/slider/slider-item.directive
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
-    FlexLayoutModule
+    MatBadgeModule,
+    FlexLayoutModule,
+
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

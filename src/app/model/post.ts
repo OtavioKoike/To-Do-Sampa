@@ -6,6 +6,7 @@ export interface Post {
   username: String;
   description: String;
   notas: Nota[];
-  data?: any;
-  concluido: boolean
+  date?: any;
+  finish: boolean;
+  type: String;
 }
