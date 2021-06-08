@@ -1,11 +1,13 @@
 <div class="container-fluid">
   <div class="row mt-2 text-center">
-    <h3>Cadastro</h3>
+    <h3>Bora cadastrar um role?</h3>
   </div>
   <div class="row">
     <div class="col d-none d-md-block">
-      <div class="h-75 mt-5 d-flex justify-content-center">
-        <img [src]="lugar.photoUrl" class="img-fluid">
+      <div class="h-75 mb-5 mt-5 d-flex justify-content-center">
+        <span *ngIf="lugar.photoUrl">
+          <img [src]="lugar.photoUrl" class="img-fluid" width="432px" height="540px">
+        </span>
       </div>
 
       <div class="row d-flex justify-content-center mt-3">
@@ -24,7 +26,7 @@
             <form #user="ngForm">
               <mat-form-field class="w-100" appearance="outline">
                 <mat-label>Username</mat-label>
-                <input matInput type="text" name="username" ngModel required [(ngModel)]="lugar.username" />
+                <input matInput type="text" name="username" ngModel required [(ngModel)]="lugar.username" (keyup.enter)="buscaLugar()" />
               </mat-form-field>
             </form>
           </div>
@@ -39,6 +41,7 @@
           <mat-radio-group aria-label="Select an option" [(ngModel)]="lugar.type" name="tipo" required>
             <mat-radio-button value="Restaurantes" >Restaurante</mat-radio-button>
             <mat-radio-button value="Bares" >Bar</mat-radio-button>
+            <mat-radio-button value="Cafeterias" >Cafeterias</mat-radio-button>
             <mat-radio-button value="Viagens" >Viagem</mat-radio-button>
             <mat-radio-button value="Eventos" >Evento</mat-radio-button>
           </mat-radio-group>
@@ -70,7 +73,7 @@
             </mat-form-field>
             <mat-form-field class="col-5 col-md-3" appearance="outline">
               <mat-label>Dias</mat-label>
-              <input matInput type="number" [(ngModel)]="lugar.days"  name="dias">
+              <input matInput type="number" [(ngModel)]="evento.days"  name="dias">
             </mat-form-field>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { Event } from './../../model/event';
 import { PlacesService } from './../../services/places.service';
 import { Place } from 'src/app/model/place';
 import { Component, OnInit } from '@angular/core';
@@ -18,6 +19,7 @@ import { isUndefined } from 'util';
 export class LugaresCadastroComponent implements OnInit {
 
   lugar = {} as Place
+  evento = {} as Event
 
   data = ''
   existe = false;
@@ -38,7 +40,7 @@ export class LugaresCadastroComponent implements OnInit {
   }
 
   buscaLugar(){
-    this.placesService.getUnico(this.lugar.username).valueChanges({idField : 'id'}).subscribe(lugar => {
+    this.placesService.getPlace(this.lugar.username).valueChanges({idField : 'uid'}).subscribe(lugar => {
       if(lugar.length > 0){
         this.lugar = lugar[0];
         this.existe = true;
@@ -68,32 +70,35 @@ export class LugaresCadastroComponent implements OnInit {
   }
 
   onSubmit(){
-    if(isUndefined(this.data) || this.data === null){
-      this.lugar.date = ''
-    }else{
-      this.lugar.date = this.data;
-    }
-
-    if(isUndefined(this.lugar.days)){
-      this.lugar.days = null
-    }
-
+    this.lugar.username = this.lugar.username.trim();
     if(!this.existe){
-      this.placesService.create(this.lugar);
+      this.lugar.notas = [];
+      this.lugar.finish = false;
+      this.lugar.uid = this.placesService.createPlace(this.lugar);
     }
+
+    this.evento.photoUrl = this.lugar.photoUrl;
+    this.evento.link = this.lugar.link;
+    this.evento.username = this.lugar.username;
+    this.evento.description = this.lugar.description;
+    this.evento.notas = this.lugar.notas;
+    this.evento.finish = this.lugar.finish;
+    this.evento.type = this.lugar.type;
+    this.evento.idPlace = this.lugar.uid;
+
+    if(isUndefined(this.data) || this.data === null){
+      this.evento.date = ''
+    }else{
+      this.evento.date = this.data;
+    }
+
+    if(isUndefined(this.evento.days)){
+      this.evento.days = null
+    }
+
+    this.placesService.createEvent(this.evento);
 
     this.route();
   }
 
 }
-
-// uid: AUTOMATICO;
-  // photoUrl: PEGAR; -------------
-  // link?: PEGAR; -----------
-  // username: PEGAR;    V
-  // description: PEGAR; ---------
-  // notas: AUTOMATICO;
-  // date?: NOVO;
-  // finish: AUTOMATICO;
-  // type: PEGAR;           V
-  // days: NOVO

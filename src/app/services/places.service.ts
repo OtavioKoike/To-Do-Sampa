@@ -1,3 +1,4 @@
+import { Event } from './../model/event';
 import { Place } from '../model/place';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, CollectionReference } from '@angular/fire/firestore';
@@ -12,9 +13,9 @@ export class PlacesService {
   ) { }
 
   // Para mostrar no home
-  get(type: string): AngularFirestoreCollection<Place> {
-    var places: AngularFirestoreCollection<Place> = this.db.collection<Place>(
-      '/post',
+  getEvents(type: string): AngularFirestoreCollection<Event> {
+    var places: AngularFirestoreCollection<Event> = this.db.collection<Event>(
+      '/event',
       (ref: CollectionReference) => ref.where('type', '==', type)
       .orderBy('date')
       .limit(10)
@@ -23,7 +24,7 @@ export class PlacesService {
   }
 
   // Para Trazer os dados no cadastro caso exista
-  getUnico(username: string): AngularFirestoreCollection<Place> {
+  getPlace(username: string): AngularFirestoreCollection<Place> {
     var places: AngularFirestoreCollection<Place> = this.db.collection<Place>(
       '/places',
       (ref: CollectionReference) => ref.where('username', '==', username)
@@ -32,18 +33,34 @@ export class PlacesService {
     return places;
   }
 
-  // Cadastro
-  create(lugar: Place){
-    this.db.doc(`places/${this.db.createId()}`).set({
+  // Cadastro Place
+  createPlace(lugar: Place): string{
+    var id = this.db.createId();
+    this.db.doc(`places/${id}`).set({
       photoUrl: lugar.photoUrl,
       link: lugar.link,
       username: lugar.username,
       description: lugar.description,
-      notas: [],
-      date: lugar.date,
-      finish: false,
+      notas: lugar.notas,
+      finish: lugar.finish,
       type: lugar.type,
-      days: lugar.days
+    })
+    return id;
+  }
+
+  // Cadastro
+  createEvent(event: Event){
+    this.db.doc(`event/${this.db.createId()}`).set({
+      photoUrl: event.photoUrl,
+      link: event.link,
+      username: event.username,
+      description: event.description,
+      notas: event.notas,
+      finish: event.finish,
+      type: event.type,
+      idPlace: event.idPlace,
+      date: event.date,
+      days: event.days
     })
   }
 }
