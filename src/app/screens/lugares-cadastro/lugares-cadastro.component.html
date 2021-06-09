@@ -38,16 +38,19 @@
       </div>
       <form #dados="ngForm">
         <div class="row">
-          <mat-radio-group aria-label="Select an option" [(ngModel)]="lugar.type" name="tipo" required>
-            <mat-radio-button value="Restaurantes" >Restaurante</mat-radio-button>
-            <mat-radio-button value="Bares" >Bar</mat-radio-button>
-            <mat-radio-button value="Cafeterias" >Cafeterias</mat-radio-button>
-            <mat-radio-button value="Viagens" >Viagem</mat-radio-button>
-            <mat-radio-button value="Eventos" >Evento</mat-radio-button>
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="lugar.type" name="tipo" required >
+            <div class="row">
+              <div class="col-4 col-xl-2"><mat-radio-button value="Restaurantes" >Restaurante</mat-radio-button></div>
+              <div class="col-4 col-xl-2"><mat-radio-button value="Bares" >Bar</mat-radio-button></div>
+              <div class="col-4 col-xl-2"><mat-radio-button value="Cafeterias" >Cafeterias</mat-radio-button></div>
+              <div class="col-4 col-xl-2"><mat-radio-button value="Viagens" >Viagem</mat-radio-button></div>
+              <div class="col-4 col-xl-2"><mat-radio-button value="Eventos" >Evento</mat-radio-button></div>
+              <div class="col-4 col-xl-2"><mat-radio-button value="Outros" >Outros</mat-radio-button></div>
+            </div>
           </mat-radio-group>
         </div>
         <div class="row mt-3">
-          <mat-label class="max">Qual o link da publicação do SampaDicas?</mat-label>
+          <mat-label class="max">Qual o link da publicação no Instagram?</mat-label>
           <mat-form-field class="col-xs col-md-7" appearance="outline">
             <mat-label>Link</mat-label>
             <input matInput type="text" name="link" ngModel required [(ngModel)]="lugar.link" />
@@ -55,7 +58,7 @@
         </div>
         <div class="row">
           <mat-label class="max">Qual a descrição do Local?</mat-label>
-          <mat-label class="min">Pode ser igual do Instagram ou da melhor forma que te lembra o local.</mat-label>
+          <mat-label class="min">Pode ser igual do Insta ou da melhor forma que te lembra o local.</mat-label>
           <mat-form-field class="col" appearance="outline">
             <mat-label>Descrição</mat-label>
             <textarea matInput type="text" name="descricao" rows="5" ngModel required [(ngModel)]="lugar.description" ></textarea>
@@ -80,6 +83,9 @@
       </form>
       <div class="col-10 mb-3 d-block d-sm-none">
         <mat-label class="max">Qual a melhor foto do Local?</mat-label>
+        <div *ngIf="existe">
+          <mat-label class="min">Esse local já possui foto!</mat-label>
+        </div>
         <input type="file" #inputFile class="form-control bg-transparent" (change)="upload($event)" accept=".jpg, .jpeg, .png"
           required />
       </div>
