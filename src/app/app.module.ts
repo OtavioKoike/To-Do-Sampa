@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app.routing';
 //Responsividade
 import { FlexLayoutModule } from "@angular/flex-layout";
 
+//Ng Boootstrap
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //Firebase
 import { AngularFireModule } from "@angular/fire";
@@ -27,17 +29,27 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
+//Service
+import { AuthService } from './services/auth.service';
+import { HomeComponent } from './screens/home/home.component';
+import { MenuComponent } from './screens/menu/menu.component';
+import { PlacesService } from './services/places.service';
 
 // Componentes
 import { SignInComponent } from './screens/Login/sign-in/sign-in.component';
 import { SignUpComponent } from './screens/Login/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './screens/Login/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './screens/Login/verify-email/verify-email.component';
+import { SliderComponent } from './screens/home/slider/slider.component';
+import { SliderItemDirective } from './screens/home/slider/slider-item.directive';
+import { CategoriasComponent } from './screens/home/categorias/categorias.component';
+import { LugaresCadastroComponent } from './screens/lugares-cadastro/lugares-cadastro.component';
 
-//Service
-import { AuthService } from './services/auth.service';
-import { HomeComponent } from './screens/home/home.component';
-import { MenuComponent } from './screens/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -48,12 +60,17 @@ import { MenuComponent } from './screens/menu/menu.component';
     VerifyEmailComponent,
     HomeComponent,
     MenuComponent,
+    SliderComponent,
+    SliderItemDirective,
+    CategoriasComponent,
+    LugaresCadastroComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
@@ -65,9 +82,17 @@ import { MenuComponent } from './screens/menu/menu.component';
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
-    FlexLayoutModule
+    MatBadgeModule,
+    FlexLayoutModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgbModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    PlacesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

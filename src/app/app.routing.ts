@@ -12,7 +12,7 @@ import { SignInComponent } from './screens/Login/sign-in/sign-in.component';
 //Outros
 import { HomeComponent } from './screens/home/home.component';
 import { MenuComponent } from './screens/menu/menu.component';
-
+import { LugaresCadastroComponent } from './screens/lugares-cadastro/lugares-cadastro.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
@@ -24,7 +24,9 @@ export const routes: Routes = [
   {path: 'menu', component: MenuComponent, canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo:'home', pathMatch:'full'},
-      { path:'home', component: HomeComponent, canActivate: [AuthGuard]}
+      { path:'home', component: HomeComponent, canActivate: [AuthGuard]},
+      { path:'cadastro', component: LugaresCadastroComponent, canActivate: [AuthGuard]},
+
     ]
   }
 ]

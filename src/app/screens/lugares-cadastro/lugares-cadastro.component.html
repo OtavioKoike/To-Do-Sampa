@@ -1,0 +1,97 @@
+<div class="container-fluid">
+  <div class="row mt-2 text-center">
+    <h3>Bora cadastrar um role?</h3>
+  </div>
+  <div class="row">
+    <div class="col d-none d-md-block">
+      <div class="h-75 mb-5 mt-5 d-flex justify-content-center">
+        <span *ngIf="lugar.photoUrl">
+          <img [src]="lugar.photoUrl" class="img-fluid" width="432px" height="540px">
+        </span>
+      </div>
+
+      <div class="row d-flex justify-content-center mt-3">
+        <div class="col-5">
+          <input type="file" #inputFile class="form-control bg-transparent" (change)="upload($event)" accept=".jpg, .jpeg, .png"
+            required />
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="row">
+        <mat-label class="max">Qual o username do Local?</mat-label>
+        <mat-label class="min">Caso ele já esteja cadastrado traremos os dados para você.</mat-label>
+        <div class="row">
+          <div class="col ">
+            <form #user="ngForm">
+              <mat-form-field class="w-100" appearance="outline">
+                <input matInput type="text" name="lugar" ngModel required [(ngModel)]="lugar.username" (keyup.enter)="buscaLugar()" />
+              </mat-form-field>
+            </form>
+          </div>
+          <div class="col ml-5 mt-2">
+            <button (click)="buscaLugar()" mat-icon-button><mat-icon>search</mat-icon></button>
+          </div>
+        </div>
+        <hr>
+      </div>
+      <form #dados="ngForm">
+        <div class="row">
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="lugar.type" name="tipo" required >
+            <div class="row">
+              <div class="col-4 col-xl-2"><mat-radio-button value="Restaurantes" >Restaurante</mat-radio-button></div>
+              <div class="col-4 col-xl-2"><mat-radio-button value="Bares" >Bar</mat-radio-button></div>
+              <div class="col-4 col-xl-2"><mat-radio-button value="Cafeterias" >Cafeterias</mat-radio-button></div>
+              <div class="col-4 col-xl-2"><mat-radio-button value="Viagens" >Viagem</mat-radio-button></div>
+              <div class="col-4 col-xl-2"><mat-radio-button value="Eventos" >Evento</mat-radio-button></div>
+              <div class="col-4 col-xl-2"><mat-radio-button value="Outros" >Outros</mat-radio-button></div>
+            </div>
+          </mat-radio-group>
+        </div>
+        <div class="row mt-3">
+          <mat-label class="max">Qual o link da publicação no Instagram?</mat-label>
+          <mat-form-field class="col-xs col-md-7" appearance="outline">
+            <mat-label>Link</mat-label>
+            <input matInput type="text" name="link" ngModel required [(ngModel)]="lugar.link" />
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label class="max">Qual a descrição do Local?</mat-label>
+          <mat-label class="min">Pode ser igual do Insta ou da melhor forma que te lembra o local.</mat-label>
+          <mat-form-field class="col" appearance="outline">
+            <mat-label>Descrição</mat-label>
+            <textarea matInput type="text" name="descricao" rows="5" ngModel required [(ngModel)]="lugar.description" ></textarea>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label class="max">Que dia e quantos dias serão?</mat-label>
+          <mat-label class="min">Se não estiver definido, deixe os campos em branco.</mat-label>
+          <div class="row">
+            <mat-form-field class="col-6 col-md-4" appearance="outline">
+              <mat-label>Data</mat-label>
+              <input matInput [matDatepicker]="picker" ngModel [(ngModel)]="data" name="data">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="col-5 col-md-3" appearance="outline">
+              <mat-label>Dias</mat-label>
+              <input matInput type="number" [(ngModel)]="evento.days"  name="dias">
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+      <div class="col-10 mb-3 d-block d-sm-none">
+        <mat-label class="max">Qual a melhor foto do Local?</mat-label>
+        <div *ngIf="existe">
+          <mat-label class="min">Esse local já possui foto!</mat-label>
+        </div>
+        <input type="file" #inputFile class="form-control bg-transparent" (change)="upload($event)" accept=".jpg, .jpeg, .png"
+          required />
+      </div>
+      <div class="d-flex justify-content-end buttons">
+        <button (click)="route()" mat-dialog-close mat-raised-button color="warn">Cancelar</button>
+        <button (click)="onSubmit()" mat-dialog-close mat-raised-button color="accent" [disabled]="!dados.form.valid || !user.form.valid || !lugar.photoUrl" >Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
