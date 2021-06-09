@@ -25,8 +25,7 @@
           <div class="col ">
             <form #user="ngForm">
               <mat-form-field class="w-100" appearance="outline">
-                <mat-label>Username</mat-label>
-                <input matInput type="text" name="username" ngModel required [(ngModel)]="lugar.username" (keyup.enter)="buscaLugar()" />
+                <input matInput type="text" name="lugar" ngModel required [(ngModel)]="lugar.username" (keyup.enter)="buscaLugar()" />
               </mat-form-field>
             </form>
           </div>

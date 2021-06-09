@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app.routing';
 //Responsividade
 import { FlexLayoutModule } from "@angular/flex-layout";
 
+//Ng Boootstrap
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //Firebase
 import { AngularFireModule } from "@angular/fire";
@@ -48,6 +50,7 @@ import { SliderItemDirective } from './screens/home/slider/slider-item.directive
 import { CategoriasComponent } from './screens/home/categorias/categorias.component';
 import { LugaresCadastroComponent } from './screens/lugares-cadastro/lugares-cadastro.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +86,8 @@ import { LugaresCadastroComponent } from './screens/lugares-cadastro/lugares-cad
     FlexLayoutModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgbModule
   ],
   providers: [
     AuthService,
