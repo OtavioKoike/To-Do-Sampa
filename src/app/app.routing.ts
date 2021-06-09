@@ -13,6 +13,7 @@ import { SignInComponent } from './screens/Login/sign-in/sign-in.component';
 import { HomeComponent } from './screens/home/home.component';
 import { MenuComponent } from './screens/menu/menu.component';
 import { LugaresCadastroComponent } from './screens/lugares-cadastro/lugares-cadastro.component';
+import { LugaresViewComponent } from './screens/lugares-view/lugares-view.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
@@ -26,6 +27,7 @@ export const routes: Routes = [
       { path: '', redirectTo:'home', pathMatch:'full'},
       { path:'home', component: HomeComponent, canActivate: [AuthGuard]},
       { path:'cadastro', component: LugaresCadastroComponent, canActivate: [AuthGuard]},
+      { path:'view', component: LugaresViewComponent, canActivate: [AuthGuard]},
 
     ]
   }

@@ -1,3 +1,4 @@
+import { Nota } from './../model/nota';
 import { Event } from './../model/event';
 import { Place } from '../model/place';
 import { Injectable } from '@angular/core';
@@ -48,6 +49,23 @@ export class PlacesService {
     return id;
   }
 
+  createComment(evento: Event){
+    this.db.doc(`places/${evento.idPlace}`).update({
+      notas: evento.notas
+    })
+
+    this.db.doc(`/event/${evento.uid}`).update({
+      notas: evento.notas
+    })
+  }
+
+  updateData(evento: Event){
+    this.db.doc(`/event/${evento.uid}`).update({
+      date: evento.date,
+      days: evento.days
+    })
+  }
+
   // Cadastro
   createEvent(event: Event){
     this.db.doc(`event/${this.db.createId()}`).set({
@@ -62,5 +80,9 @@ export class PlacesService {
       date: event.date,
       days: event.days
     })
+  }
+
+  deleteEvent(evento: Event){
+    this.db.doc(`/event/${evento.uid}`).delete();
   }
 }

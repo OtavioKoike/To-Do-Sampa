@@ -27,6 +27,7 @@ export class SignInComponent implements OnInit {
     users$.subscribe(user => {
       if(user.length > 0){
         this.user = user[0];
+        localStorage.setItem('userCompleto', JSON.stringify(this.user));
         this.authService.SignIn(user[0].email, form.value.userPassword)
       }else{
         window.alert("The username does not exist.")

@@ -49,6 +49,7 @@ import { SliderComponent } from './screens/home/slider/slider.component';
 import { SliderItemDirective } from './screens/home/slider/slider-item.directive';
 import { CategoriasComponent } from './screens/home/categorias/categorias.component';
 import { LugaresCadastroComponent } from './screens/lugares-cadastro/lugares-cadastro.component';
+import { LugaresViewComponent } from './screens/lugares-view/lugares-view.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { LugaresCadastroComponent } from './screens/lugares-cadastro/lugares-cad
     SliderComponent,
     SliderItemDirective,
     CategoriasComponent,
-    LugaresCadastroComponent
+    LugaresCadastroComponent,
+    LugaresViewComponent
   ],
   imports: [
     BrowserModule,
