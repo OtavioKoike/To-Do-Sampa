@@ -1,9 +1,11 @@
-import { PlacesService } from './../../services/places.service';
-import { Nota } from './../../model/nota';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Event } from './../../model/event';
 import { isUndefined } from 'util';
+import { Router } from '@angular/router';
+//Model
+import { Event } from './../../model/event';
+import { Nota } from './../../model/nota';
+//Service
+import { PlacesService } from './../../services/places.service';
 
 @Component({
   selector: 'app-lugares-view',
@@ -15,35 +17,39 @@ export class LugaresViewComponent implements OnInit {
   evento = {} as Event
   stars: number;
 
-  data = ''
+  data
   altera = false;
 
   starsComment = 0;
   descriptComment = '';
+  user;
 
   constructor(
     private placeService: PlacesService,
-    private router: Router
+    private router: Router,
     ) {
-    this.evento = JSON.parse(localStorage.getItem('event'));
-    if(this.evento.notas.length > 0){
-      this.stars = this.evento.notas.reduce((total, nota) => total + nota.value, 0) / this.evento.notas.length;
-      this.stars = Math.round(this.stars);
-    }else{this.stars = 0}
+      this.user =  JSON.parse(localStorage.getItem('userCompleto'));
+      var uid = JSON.parse(localStorage.getItem('idEvent'))
+      this.placeService.getEvent(uid).valueChanges({idField: 'uid'}).subscribe(event => {
+        this.evento = event;
+        this.data = new Date(this.evento.date.seconds * 1000)
+        if(this.evento.notas.length > 0){
+          this.stars = this.evento.notas.reduce((total, nota) => total + nota.value, 0) / this.evento.notas.length;
+          this.stars = Math.round(this.stars);
+        }else{this.stars = 0}
+        })
   }
 
   ngOnInit(): void {
   }
 
   route(){
-    localStorage.setItem('event', null);
     this.router.navigate(['menu/home']);
   }
 
   onComment(){
     let comentario = {} as Nota
-    let user =  JSON.parse(localStorage.getItem('userCompleto'));
-    comentario.author = user.username;
+    comentario.author = this.user.username;
     comentario.data = new Date();
     comentario.value = this.starsComment;
     comentario.description = this.descriptComment;
@@ -52,9 +58,23 @@ export class LugaresViewComponent implements OnInit {
     this.starsComment = 0;
 
     this.evento.notas.push(comentario)
-
-    localStorage.setItem('event', JSON.stringify(this.evento));
     this.placeService.createComment(this.evento);
+  }
+
+  deleteComment(comentario: Nota){
+    let index = this.evento.notas.indexOf(comentario)
+    this.evento.notas.splice(index, 1);
+    this.placeService.createComment(this.evento);
+  }
+
+  transformaData(data){
+    var day: Date
+    if(isUndefined(data.seconds)){
+      day = data;
+    }else{
+      day = new Date(data.seconds * 1000);
+    }
+    return day.getDate() + "/" + (day.getMonth()+1) + "/" + day.getFullYear()
   }
 
   onDate(){
@@ -68,14 +88,22 @@ export class LugaresViewComponent implements OnInit {
       this.evento.days = null
     }
 
-    localStorage.setItem('event', JSON.stringify(this.evento));
     this.placeService.updateData(this.evento);
     window.alert("Data Alterada!")
   }
 
   onDelete(){
-    this.placeService.deleteEvent(this.evento);
-    localStorage.setItem('event', null);
-    this.router.navigate(['menu/home']);
+    if(window.confirm("Realmente não vai rolar?")){
+      this.placeService.deleteEvent(this.evento);
+      this.router.navigate(['menu/home']);
+    }
+  }
+
+  onFinish(){
+    if(window.confirm("Você e toda galera já deram a nota?")){
+      if(!this.evento.finish){ this.placeService.updateFinish(this.evento.idPlace) }
+      this.placeService.deleteEvent(this.evento);
+      this.router.navigate(['menu/home']);
+    }
   }
 }

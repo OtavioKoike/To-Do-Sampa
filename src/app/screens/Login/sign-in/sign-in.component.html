@@ -6,6 +6,7 @@
           <div class="text-center">
             <h4>Entrar</h4>
           </div>
+
           <form #signin="ngForm" (ngSubmit)="onSubmit(signin)">
             <div class="row">
               <mat-form-field class="col" appearance="outline">
@@ -28,6 +29,7 @@
                 [disabled]="!signin.form.valid">Entrar</button>
             </div>
           </form>
+
           <div class="row m-1">
             <button mat-raised-button color="warn" class="col" routerLink="/register-user">Cadastrar</button>
           </div>

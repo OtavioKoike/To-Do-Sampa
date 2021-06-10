@@ -1,15 +1,14 @@
-import { Event } from './../../model/event';
-import { PlacesService } from './../../services/places.service';
-import { Place } from 'src/app/model/place';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import {
-  AngularFireUploadTask,
-  AngularFireStorage,
-} from '@angular/fire/storage';
 import { isUndefined } from 'util';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+// Firebase Storage
+import { AngularFireUploadTask, AngularFireStorage } from '@angular/fire/storage';
+// Model
+import { Event } from './../../model/event';
+import { Place } from 'src/app/model/place';
+//Service
+import { PlacesService } from './../../services/places.service';
 
 @Component({
   selector: 'app-lugares-cadastro',
@@ -97,7 +96,6 @@ export class LugaresCadastroComponent implements OnInit {
     }
 
     this.placesService.createEvent(this.evento);
-
     this.route();
   }
 

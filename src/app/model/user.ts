@@ -1,6 +1,6 @@
 export interface User {
-  uid: string;
   email: string;
-  username: string;
   emailVerified: boolean;
+  uid: string;
+  username: string;
 }

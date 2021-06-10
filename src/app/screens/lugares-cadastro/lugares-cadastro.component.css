@@ -1,7 +1,4 @@
-mat-radio-button {
-  margin-right: 7px;
-}
-
+/* Propriedades Fontes */
 .max {
   font-size: 18px;
 }
@@ -9,7 +6,10 @@ mat-radio-button {
 .min {
   font-size: 12px;
 }
-
+/* ------------------------------ */
+/* Propriedades Botoes */
 .buttons button {
   margin-right: 10px;
 }
+
+/* ------------------------------ */

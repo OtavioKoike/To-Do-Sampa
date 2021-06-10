@@ -13,11 +13,11 @@ export class SecureInnerPagesGuard implements CanActivate {
     public router: Router
   ) { }
 
+  // Não acessar paginas de login estando logado
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if(this.authService.isLoggedIn ) {
-      // window.alert("You are not allowed to access this URL!");
        this.router.navigate(['menu'])
     }
     return true;

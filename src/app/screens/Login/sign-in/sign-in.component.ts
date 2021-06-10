@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
-//Service
-import { AuthService } from './../../../services/auth.service';
 //Model
 import { User } from 'src/app/model/user';
+//Service
+import { AuthService } from './../../../services/auth.service';
+
 
 @Component({
   selector: 'app-sign-in',

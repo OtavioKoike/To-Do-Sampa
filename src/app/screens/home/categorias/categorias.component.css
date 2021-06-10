@@ -1,7 +1,10 @@
-p {
-  font-family: Lato;
+/* Propriedades Slider */
+[appSliderItem] {
+  flex-shrink: 0;
 }
 
+/* ------------------------------ */
+/* Propriedades Cards Eventos */
 .example-card {
   margin-right: 10px;
   border-radius: 10px;
@@ -9,10 +12,6 @@ p {
   width: 225px;
   height: 300px;
   background-size:cover;
-}
-
-[appSliderItem] {
-  flex-shrink: 0;
 }
 
 h5 {
@@ -25,3 +24,5 @@ h5 {
 a {
   cursor: pointer;
 }
+
+/* ------------------------------ */

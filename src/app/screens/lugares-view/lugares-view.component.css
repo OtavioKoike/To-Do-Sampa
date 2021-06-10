@@ -1,37 +1,24 @@
-mat-radio-button {
-  margin-right: 7px;
-}
-
-.max {
-  font-size: 18px;
-}
-
-.min {
-  font-size: 12px;
-}
-
-.buttons button {
-  margin-right: 10px;
-}
-
-.image {
-  display: flex;
-  align-items: center;
-}
-
+/* Propriedades Margem dos Botoes de apagar role e alterar data*/
 .margem {
   margin-left: 15px;
   margin-right: 15px;
 }
-/* --------------------------------- */
+
+/* ------------------------------ */
+/* Propriedades Estrelas */
 ngb-rating {
   color: #FFC107;
   font-size: 35px;
 }
 
+/* ------------------------------ */
+/* Propriedades Exibir imagem cortada no mobile */
 .objectImage {
   width: 100%;
   height: 150px;
   object-fit: cover;
   object-position: center;
 }
+
+/* ------------------------------ */
+
