@@ -5,11 +5,13 @@
       <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
         <mat-icon class="menu">menu</mat-icon>
       </button>
-      <span fxShow="true" fxHide.lt-md><img src="../../../assets/img/logo.png" width="20%"></span>
-      <span fxShow="true" fxHide.gt-sm class="logo"><img src="../../../assets/img/logo.png" width="50%"></span>
+      <!-- Exibe apenas Ipad e Desktop -->
+      <span fxShow="true" fxHide.lt-md><a routerLink="home"><img src="../../../assets/img/logo.png" width="20%"></a></span>
+      <!-- Exibe apenas Mobile -->
+      <span fxShow="true" fxHide.gt-sm class="logo"><a routerLink="home"><img src="../../../assets/img/logo.png" width="50%"></a></span>
       <span class="menu-spacer"></span>
+      <!-- Exibe apenas Ipad e Desktop -->
       <div fxShow="true" fxHide.lt-md class="lista">
-        <!-- The following menu items will be hidden on both SM and XS screen sizes -->
         <a routerLink="home" mat-button><mat-icon></mat-icon> Início</a>
         <a href="#" mat-button>Restaurantes</a>
         <a href="#" mat-button>Bares</a>
@@ -23,6 +25,7 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
+  <!-- Exibe apenas Mobile -->
   <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav class="nav">
       <mat-nav-list>

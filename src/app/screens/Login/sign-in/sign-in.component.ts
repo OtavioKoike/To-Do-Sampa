@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
-//Service
-import { AuthService } from './../../../services/auth.service';
 //Model
 import { User } from 'src/app/model/user';
+//Service
+import { AuthService } from './../../../services/auth.service';
+
 
 @Component({
   selector: 'app-sign-in',
@@ -27,6 +28,7 @@ export class SignInComponent implements OnInit {
     users$.subscribe(user => {
       if(user.length > 0){
         this.user = user[0];
+        localStorage.setItem('userCompleto', JSON.stringify(this.user));
         this.authService.SignIn(user[0].email, form.value.userPassword)
       }else{
         window.alert("The username does not exist.")

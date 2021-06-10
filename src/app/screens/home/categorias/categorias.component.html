@@ -5,11 +5,11 @@
 
   <app-slider>
       <div appSliderItem *ngFor="let lugar of lugares$ | async">
-        <mat-card class="example-card" [style.background-image]="'url('+lugar?.photoUrl+')'">
+        <a (click)="route(lugar)"><mat-card class="example-card" [style.background-image]="'url('+lugar?.photoUrl+')'">
           <div class="carousel-caption">
             <h5>{{lugar?.username}}</h5>
           </div>
-        </mat-card>
+        </mat-card></a>
       </div>
   </app-slider>
 </div>

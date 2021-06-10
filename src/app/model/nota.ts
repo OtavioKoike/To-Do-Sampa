@@ -1,5 +1,6 @@
 export interface Nota {
   author: string;
-  value: number;
+  data: any;
   description: string;
+  value: number;
 }

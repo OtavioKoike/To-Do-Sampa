@@ -1,8 +1,10 @@
-import { Event } from './../../../model/event';
-import { PlacesService } from '../../../services/places.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { Place } from 'src/app/model/place';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+//Model
+import { Event } from './../../../model/event';
+//Service
+import { PlacesService } from '../../../services/places.service';
 
 @Component({
   selector: 'app-categorias',
@@ -17,15 +19,21 @@ export class CategoriasComponent implements OnInit {
   lugares: Event[];
 
   constructor(
-    private placesService: PlacesService
+    private placesService: PlacesService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.lugares$ = this.placesService.getEvents(this.categoria).valueChanges({idField : 'id'});
+    this.lugares$ = this.placesService.getEvents(this.categoria).valueChanges({idField : 'uid'});
     this.lugares$.subscribe(lugares => {
       this.lugares = lugares;
       console.log(lugares)
     })
+  }
+
+  route(lugar: Event){
+    localStorage.setItem('idEvent', JSON.stringify(lugar.uid));
+    this.router.navigate(['menu/view']);
   }
 
 }

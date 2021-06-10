@@ -1,8 +1,8 @@
+import { Injectable } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, CollectionReference } from '@angular/fire/firestore';
+//Model
 import { Event } from './../model/event';
 import { Place } from '../model/place';
-import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, CollectionReference } from '@angular/fire/firestore';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -12,43 +12,8 @@ export class PlacesService {
     public db: AngularFirestore,
   ) { }
 
-  // Para mostrar no home
-  getEvents(type: string): AngularFirestoreCollection<Event> {
-    var places: AngularFirestoreCollection<Event> = this.db.collection<Event>(
-      '/event',
-      (ref: CollectionReference) => ref.where('type', '==', type)
-      .orderBy('date')
-      .limit(10)
-    );
-    return places;
-  }
-
-  // Para Trazer os dados no cadastro caso exista
-  getPlace(username: string): AngularFirestoreCollection<Place> {
-    var places: AngularFirestoreCollection<Place> = this.db.collection<Place>(
-      '/places',
-      (ref: CollectionReference) => ref.where('username', '==', username)
-      .limit(1)
-    );
-    return places;
-  }
-
-  // Cadastro Place
-  createPlace(lugar: Place): string{
-    var id = this.db.createId();
-    this.db.doc(`places/${id}`).set({
-      photoUrl: lugar.photoUrl,
-      link: lugar.link,
-      username: lugar.username,
-      description: lugar.description,
-      notas: lugar.notas,
-      finish: lugar.finish,
-      type: lugar.type,
-    })
-    return id;
-  }
-
-  // Cadastro
+  // ----------------------------------------------------------------------------------
+  // Eventos
   createEvent(event: Event){
     this.db.doc(`event/${this.db.createId()}`).set({
       photoUrl: event.photoUrl,
@@ -63,4 +28,74 @@ export class PlacesService {
       days: event.days
     })
   }
+
+  // Para mostrar no home
+  getEvents(type: string): AngularFirestoreCollection<Event> {
+    var places: AngularFirestoreCollection<Event> = this.db.collection<Event>(
+      '/event',
+      (ref: CollectionReference) => ref.where('type', '==', type)
+      .orderBy('date')
+      .limit(10)
+    );
+    return places;
+  }
+
+  // Para mostrar no View
+  getEvent(uid: string): AngularFirestoreDocument<Event> {
+    var place: AngularFirestoreDocument<Event> = this.db.doc<Event>(`/event/${uid}`);
+    return place;
+  }
+
+  deleteEvent(evento: Event){
+    this.db.doc(`/event/${evento.uid}`).delete();
+  }
+
+  // ----------------------------------------------------------------------------------
+  // Places
+  createPlace(lugar: Place): string{
+    var id = this.db.createId();
+    this.db.doc(`places/${id}`).set({
+      photoUrl: lugar.photoUrl,
+      link: lugar.link,
+      username: lugar.username,
+      description: lugar.description,
+      notas: lugar.notas,
+      finish: lugar.finish,
+      type: lugar.type,
+    })
+    return id;
+  }
+
+  // Para Trazer os dados no cadastro caso exista
+  getPlace(username: string): AngularFirestoreCollection<Place> {
+    var places: AngularFirestoreCollection<Place> = this.db.collection<Place>('/places',
+      (ref: CollectionReference) => ref.where('username', '==', username).limit(1));
+    return places;
+  }
+
+  // ----------------------------------------------------------------------------------
+  createComment(evento: Event){
+    this.db.doc(`places/${evento.idPlace}`).update({
+      notas: evento.notas
+    })
+
+    this.db.doc(`/event/${evento.uid}`).update({
+      notas: evento.notas
+    })
+  }
+
+  updateData(evento: Event){
+    this.db.doc(`/event/${evento.uid}`).update({
+      date: evento.date,
+      days: evento.days
+    })
+  }
+
+  updateFinish(uid: string){
+    this.db.doc(`places/${uid}`).update({
+      finish: true
+    })
+  }
+
+  // ----------------------------------------------------------------------------------
 }

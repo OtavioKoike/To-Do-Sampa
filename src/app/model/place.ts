@@ -1,11 +1,11 @@
 import { Nota } from './nota';
 export interface Place {
-  uid: string;
-  photoUrl: string;
-  link: string;
-  username: string;
   description: string;
-  notas: Nota[];
   finish: boolean;
+  link: string;
+  notas: Nota[];
+  photoUrl: string;
   type: string;
+  uid: string;
+  username: string;
 }
