@@ -1,5 +1,5 @@
 <div class="container-fluid" *ngIf="lugares?.length > 0">
-  <div class="row mt-3">
+  <div class="row mt-2">
     <h4>{{categoria}}</h4>
   </div>
 
@@ -7,7 +7,7 @@
       <div appSliderItem *ngFor="let lugar of lugares$ | async">
         <a (click)="route(lugar)"><mat-card class="example-card" [style.background-image]="'url('+lugar?.photoUrl+')'">
           <div class="carousel-caption">
-            <h5>{{lugar?.username}}</h5>
+            <p>{{lugar?.username}}</p>
           </div>
         </mat-card></a>
       </div>

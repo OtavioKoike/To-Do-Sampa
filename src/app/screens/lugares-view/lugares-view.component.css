@@ -1,7 +1,7 @@
 /* Propriedades Margem dos Botoes de apagar role e alterar data*/
 .margem {
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 /* ------------------------------ */
@@ -21,4 +21,31 @@ ngb-rating {
 }
 
 /* ------------------------------ */
+/* Propriedades Inputs */
+mat-form-field {
+  font-size: 12px;
+}
 
+/* ------------------------------ */
+/* Propriedades Descricao e comentario */
+p {
+  font-size: 14px;
+}
+
+/* ------------------------------ */
+/* Propriedades Responsividade */
+@media (max-width: 768px) {
+  .margem {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+@media (max-width: 650px) {
+    .margem {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+}
+
+/* ------------------------------ */
