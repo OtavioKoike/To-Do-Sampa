@@ -14,8 +14,9 @@
   background-size:cover;
 }
 
-h5 {
+p {
   color: white;
+  font-size: 16px;
   font-weight: 900;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #000;

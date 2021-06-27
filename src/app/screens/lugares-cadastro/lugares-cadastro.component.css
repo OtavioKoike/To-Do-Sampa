@@ -1,6 +1,6 @@
 /* Propriedades Fontes */
 .max {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .min {
@@ -10,6 +10,16 @@
 /* Propriedades Botoes */
 .buttons button {
   margin-right: 10px;
+}
+
+/* ------------------------------ */
+/* Propriedades Inputs */
+mat-form-field {
+  font-size: 12px;
+}
+
+mat-radio-button {
+  font-size: 14px;
 }
 
 /* ------------------------------ */
