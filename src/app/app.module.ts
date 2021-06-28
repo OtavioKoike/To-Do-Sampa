@@ -32,24 +32,27 @@ import {MatListModule} from '@angular/material/list';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 
 //Service
 import { AuthService } from './services/auth.service';
 import { HomeComponent } from './screens/home/home.component';
-import { MenuComponent } from './screens/menu/menu.component';
+import { MenuComponent } from './shared/menu/menu.component';
 import { PlacesService } from './services/places.service';
+import { EventsService } from './services/events.service';
 
 // Componentes
 import { SignInComponent } from './screens/Login/sign-in/sign-in.component';
 import { SignUpComponent } from './screens/Login/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './screens/Login/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './screens/Login/verify-email/verify-email.component';
-import { SliderComponent } from './screens/home/slider/slider.component';
-import { SliderItemDirective } from './screens/home/slider/slider-item.directive';
+import { SliderComponent } from './shared/slider/slider.component';
+import { SliderItemDirective } from './shared/slider/slider-item.directive';
 import { CategoriasComponent } from './screens/home/categorias/categorias.component';
 import { LugaresCadastroComponent } from './screens/lugares-cadastro/lugares-cadastro.component';
 import { LugaresViewComponent } from './screens/lugares-view/lugares-view.component';
+import { RestaurantesComponent } from './screens/restaurantes/restaurantes.component';
 
 
 @NgModule({
@@ -65,7 +68,8 @@ import { LugaresViewComponent } from './screens/lugares-view/lugares-view.compon
     SliderItemDirective,
     CategoriasComponent,
     LugaresCadastroComponent,
-    LugaresViewComponent
+    LugaresViewComponent,
+    RestaurantesComponent
   ],
   imports: [
     BrowserModule,
@@ -89,11 +93,13 @@ import { LugaresViewComponent } from './screens/lugares-view/lugares-view.compon
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
     NgbModule
   ],
   providers: [
     AuthService,
-    PlacesService
+    PlacesService,
+    EventsService
   ],
   bootstrap: [AppComponent]
 })

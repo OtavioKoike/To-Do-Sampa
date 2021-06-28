@@ -8,4 +8,6 @@ export interface Place {
   type: string;
   uid: string;
   username: string;
+  sistema: string;
+  food: string;
 }

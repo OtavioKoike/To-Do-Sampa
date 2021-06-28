@@ -1,3 +1,4 @@
+import { EventsService } from './../../services/events.service';
 import { Component, OnInit } from '@angular/core';
 import { isUndefined } from 'util';
 import { Observable } from 'rxjs';
@@ -31,6 +32,7 @@ export class LugaresCadastroComponent implements OnInit {
 
   constructor(
     private placesService: PlacesService,
+    private eventsService: EventsService,
     private router: Router,
     private storage: AngularFireStorage
   ) { }
@@ -70,6 +72,9 @@ export class LugaresCadastroComponent implements OnInit {
 
   onSubmit(){
     this.lugar.username = this.lugar.username.trim();
+    this.lugar.food = (this.lugar.food.charAt(0).toUpperCase() + this.lugar.food.slice(1)).trim();
+    // Buscar se ja existe essa comida nessa categoria
+
     if(!this.existe){
       this.lugar.notas = [];
       this.lugar.finish = false;
@@ -84,6 +89,8 @@ export class LugaresCadastroComponent implements OnInit {
     this.evento.finish = this.lugar.finish;
     this.evento.type = this.lugar.type;
     this.evento.idPlace = this.lugar.uid;
+    this.evento.sistema = this.lugar.sistema;
+    this.evento.food = this.lugar.food;
 
     if(isUndefined(this.data) || this.data === null){
       this.evento.date = ''
@@ -95,7 +102,7 @@ export class LugaresCadastroComponent implements OnInit {
       this.evento.days = null
     }
 
-    this.placesService.createEvent(this.evento);
+    this.eventsService.createEvent(this.evento);
     this.route();
   }
 

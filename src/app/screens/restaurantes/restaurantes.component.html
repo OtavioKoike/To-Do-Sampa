@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="row mt-2 d-flex justify-content-end">
+
+    <div class="col-md col-12 mt-3">
+      <h4>Restaurantes</h4>
+    </div>
+    <mat-form-field class="col-6 col-md-3 col-xl-2" appearance="outline">
+      <mat-label>Ordem</mat-label>
+      <mat-select required name="ordem" [(ngModel)]="ordem" (ngModelChange)="filter()">
+        <mat-option value="Alfabetica">Alfabetica</mat-option>
+        <mat-option value="Notas">Notas</mat-option>
+        <mat-option value="Fomos">Fui</mat-option>
+        <mat-option value="NFomos">Não Fui</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-6 col-md-3 col-xl-2" appearance="outline">
+      <mat-label>Tipo</mat-label>
+      <mat-select required name="sistema" [(ngModel)]="sistema" (ngModelChange)="filter()">
+        <mat-option value="Todos">Todos</mat-option>
+        <mat-option value="Rodizio">Rodizio</mat-option>
+        <mat-option value="A la Carte" >A la Carte</mat-option>
+        <mat-option value="Delivery">Delivery</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col col-md-3 col-xl-2" appearance="outline">
+      <mat-label>Comida/Atração</mat-label>
+      <input matInput type="text" name="food" ngModel required [(ngModel)]="food" (ngModelChange)="filter()"/>
+    </mat-form-field>
+  </div>
+
+
+  <div class="row mt-2">
+    <div class="col" *ngFor="let lugar of lugares">
+      <a (click)="route(lugar)"><mat-card class="example-card" [style.background-image]="'url('+lugar?.photoUrl+')'">
+        <div class="carousel-caption">
+          <p>{{lugar?.username}}</p>
+        </div>
+      </mat-card></a>
+    </div>
+    <div class="col" *ngFor="let i of rest"></div>
+  </div>
+
+  <div class="fab">
+    <button (click)="route()" mat-fab aria-label="Example icon button with a home icon">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>

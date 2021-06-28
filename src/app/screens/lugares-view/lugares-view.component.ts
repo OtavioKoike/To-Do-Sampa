@@ -1,3 +1,4 @@
+import { EventsService } from './../../services/events.service';
 import { Component, OnInit } from '@angular/core';
 import { isUndefined } from 'util';
 import { Router } from '@angular/router';
@@ -25,12 +26,13 @@ export class LugaresViewComponent implements OnInit {
   user;
 
   constructor(
+    private eventsService: EventsService,
     private placeService: PlacesService,
     private router: Router,
     ) {
       this.user =  JSON.parse(localStorage.getItem('userCompleto'));
       var uid = JSON.parse(localStorage.getItem('idEvent'))
-      this.placeService.getEvent(uid).valueChanges({idField: 'uid'}).subscribe(event => {
+      this.eventsService.getEvent(uid).valueChanges({idField: 'uid'}).subscribe(event => {
         this.evento = event;
         this.data = new Date(this.evento.date.seconds * 1000)
         if(this.evento.notas.length > 0){
@@ -88,13 +90,13 @@ export class LugaresViewComponent implements OnInit {
       this.evento.days = null
     }
 
-    this.placeService.updateData(this.evento);
+    this.eventsService.updateData(this.evento);
     window.alert("Data Alterada!")
   }
 
   onDelete(){
     if(window.confirm("Realmente não vai rolar?")){
-      this.placeService.deleteEvent(this.evento);
+      this.eventsService.deleteEvent(this.evento);
       this.router.navigate(['menu/home']);
     }
   }
@@ -102,7 +104,7 @@ export class LugaresViewComponent implements OnInit {
   onFinish(){
     if(window.confirm("Você e toda galera já deram a nota?")){
       if(!this.evento.finish){ this.placeService.updateFinish(this.evento.idPlace) }
-      this.placeService.deleteEvent(this.evento);
+      this.eventsService.deleteEvent(this.evento);
       this.router.navigate(['menu/home']);
     }
   }

@@ -13,7 +13,7 @@
       <!-- Exibe apenas Ipad e Desktop -->
       <div fxShow="true" fxHide.lt-md class="lista">
         <a routerLink="home" mat-button>Início</a>
-        <a href="#" mat-button>Restaurantes</a>
+        <a routerLink="restaurante" mat-button>Restaurantes</a>
         <a href="#" mat-button>Bares</a>
         <a href="#" mat-button>Cafeterias</a>
         <a href="#" mat-button>Viagens</a>
@@ -31,7 +31,7 @@
       <mat-nav-list>
         <a (click)="sidenav.toggle()" routerLink="home" mat-list-item><mat-icon>home</mat-icon>Início</a>
         <mat-divider></mat-divider>
-        <a (click)="sidenav.toggle()" routerLink="home" mat-list-item><mat-icon>restaurant</mat-icon>Restaurantes</a>
+        <a (click)="sidenav.toggle()" routerLink="restaurante" mat-list-item><mat-icon>restaurant</mat-icon>Restaurantes</a>
         <mat-divider></mat-divider>
         <a (click)="sidenav.toggle()" routerLink="home" mat-list-item><mat-icon>sports_bar</mat-icon>Bares</a>
         <mat-divider></mat-divider>
