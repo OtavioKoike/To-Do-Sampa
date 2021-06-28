@@ -1,5 +1,5 @@
 import { EventsService } from './../../services/events.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { isUndefined } from 'util';
 import { Router } from '@angular/router';
 //Model
@@ -15,7 +15,7 @@ import { PlacesService } from './../../services/places.service';
 })
 export class LugaresViewComponent implements OnInit {
 
-  evento = {} as Event
+  evento = {} as any;
   stars: number;
 
   data
@@ -24,22 +24,31 @@ export class LugaresViewComponent implements OnInit {
   starsComment = 0;
   descriptComment = '';
   user;
-
+  rota;
   constructor(
     private eventsService: EventsService,
     private placeService: PlacesService,
     private router: Router,
     ) {
+      this.rota = JSON.parse(localStorage.getItem('rota'));
       this.user =  JSON.parse(localStorage.getItem('userCompleto'));
       var uid = JSON.parse(localStorage.getItem('idEvent'))
-      this.eventsService.getEvent(uid).valueChanges({idField: 'uid'}).subscribe(event => {
-        this.evento = event;
-        this.data = new Date(this.evento.date.seconds * 1000)
-        if(this.evento.notas.length > 0){
-          this.stars = this.evento.notas.reduce((total, nota) => total + nota.value, 0) / this.evento.notas.length;
+
+      if(this.rota === 'Home'){
+        this.eventsService.getEvent(uid).valueChanges({idField: 'uid'}).subscribe(event => {
+          this.evento = event;
+          this.data = new Date(this.evento.date.seconds * 1000)
+          this.stars = this.evento.notaMedia;
           this.stars = Math.round(this.stars);
-        }else{this.stars = 0}
         })
+      }else if(this.rota === 'Lugares'){
+        this.placeService.getPlaceId(uid).valueChanges({idField: 'uid'}).subscribe(place => {
+          this.evento = place;
+          this.stars = this.evento.notaMedia;
+          this.stars = Math.round(this.stars);
+        })
+      }
+
   }
 
   ngOnInit(): void {
@@ -60,12 +69,14 @@ export class LugaresViewComponent implements OnInit {
     this.starsComment = 0;
 
     this.evento.notas.push(comentario)
+    this.evento.notaMedia = this.evento.notas.reduce((total, nota) => total + nota.value, 0) / this.evento.notas.length;
     this.placeService.createComment(this.evento);
   }
 
   deleteComment(comentario: Nota){
     let index = this.evento.notas.indexOf(comentario)
     this.evento.notas.splice(index, 1);
+    this.evento.notaMedia = this.evento.notas.reduce((total, nota) => total + nota.value, 0) / this.evento.notas.length;
     this.placeService.createComment(this.evento);
   }
 
@@ -108,4 +119,14 @@ export class LugaresViewComponent implements OnInit {
       this.router.navigate(['menu/home']);
     }
   }
+
+  onCreate(){
+    this.router.navigate(['menu/cadastro']);
+  }
+
+  onEdit(){
+    localStorage.setItem('edit', JSON.stringify(true));
+    this.router.navigate(['menu/cadastro']);
+  }
+
 }

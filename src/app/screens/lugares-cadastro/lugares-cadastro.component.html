@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row mt-1 text-center">
-    <h4>Bora cadastrar um role?</h4>
+    <h4>{{titulo}}</h4>
   </div>
 
   <div class="row">
@@ -32,7 +32,7 @@
             </form>
           </div>
           <div class="col ml-5 mt-1">
-            <button (click)="buscaLugar()" mat-icon-button><mat-icon>search</mat-icon></button>
+            <button *ngIf="idEvent === null" (click)="buscaLugar()" mat-icon-button><mat-icon>search</mat-icon></button>
           </div>
         </div>
         <hr>

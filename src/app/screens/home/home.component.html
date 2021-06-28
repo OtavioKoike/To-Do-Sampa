@@ -1,10 +1,10 @@
 <div class="container-fluid">
-  <app-categorias categoria="Restaurantes"></app-categorias>
-  <app-categorias categoria="Bares"></app-categorias>
-  <app-categorias categoria="Cafeterias"></app-categorias>
-  <app-categorias categoria="Viagens"></app-categorias>
-  <app-categorias categoria="Eventos"></app-categorias>
-  <app-categorias categoria="Outros"></app-categorias>
+  <app-categorias categoria="Restaurantes" [lugares]="restaurantes"></app-categorias>
+  <app-categorias categoria="Bares" [lugares]="bares"></app-categorias>
+  <app-categorias categoria="Cafeterias" [lugares]="cafeterias"></app-categorias>
+  <app-categorias categoria="Viagens" [lugares]="viagens"></app-categorias>
+  <app-categorias categoria="Eventos" [lugares]="eventos"></app-categorias>
+  <app-categorias categoria="Outros" [lugares]="outros"></app-categorias>
 
   <div class="fab">
     <button (click)="route()" mat-fab aria-label="Example icon button with a home icon">

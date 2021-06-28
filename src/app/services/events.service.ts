@@ -17,6 +17,7 @@ export class EventsService {
       username: event.username,
       description: event.description,
       notas: event.notas,
+      notaMedia: event.notaMedia,
       finish: event.finish,
       type: event.type,
       idPlace: event.idPlace,
@@ -28,12 +29,10 @@ export class EventsService {
   }
 
   // Para mostrar no home
-  getEvents(type: string): AngularFirestoreCollection<Event> {
+  getEvents(): AngularFirestoreCollection<Event> {
     var places: AngularFirestoreCollection<Event> = this.db.collection<Event>(
       '/event',
-      (ref: CollectionReference) => ref.where('type', '==', type)
-      .orderBy('date')
-      .limit(10)
+      (ref: CollectionReference) => ref.orderBy('date')
     );
     return places;
   }

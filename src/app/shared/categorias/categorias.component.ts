@@ -1,9 +1,9 @@
-import { EventsService } from './../../../services/events.service';
+import { EventsService } from '../../services/events.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 //Model
-import { Event } from './../../../model/event';
+import { Event } from '../../model/event';
 //Service
 
 @Component({
@@ -14,22 +14,13 @@ import { Event } from './../../../model/event';
 export class CategoriasComponent implements OnInit {
 
   @Input() categoria: string;
-
-  lugares$: Observable<Event[]>;
-  lugares: Event[];
+  @Input() lugares = [] as Event[];
 
   constructor(
-    private eventsService: EventsService,
     private router: Router
-  ) { }
+  ) {}
 
-  ngOnInit(): void {
-    this.lugares$ = this.eventsService.getEvents(this.categoria).valueChanges({idField : 'uid'});
-    this.lugares$.subscribe(lugares => {
-      this.lugares = lugares;
-      console.log(lugares)
-    })
-  }
+  ngOnInit(): void { }
 
   route(lugar: Event){
     localStorage.setItem('idEvent', JSON.stringify(lugar.uid));

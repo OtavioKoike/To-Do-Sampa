@@ -4,6 +4,7 @@ export interface Place {
   finish: boolean;
   link: string;
   notas: Nota[];
+  notaMedia: number;
   photoUrl: string;
   type: string;
   uid: string;

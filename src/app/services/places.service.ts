@@ -21,12 +21,28 @@ export class PlacesService {
       username: lugar.username,
       description: lugar.description,
       notas: lugar.notas,
+      notaMedia: lugar.notaMedia,
       finish: lugar.finish,
       type: lugar.type,
       sistema: lugar.sistema,
       food: lugar.food,
     })
     return id;
+  }
+
+  editPlace(lugar: Event){
+    this.db.doc(`places/${lugar.idPlace}`).update({
+      photoUrl: lugar.photoUrl,
+      link: lugar.link,
+      username: lugar.username,
+      description: lugar.description,
+      notas: lugar.notas,
+      notaMedia: lugar.notaMedia,
+      finish: lugar.finish,
+      type: lugar.type,
+      sistema: lugar.sistema,
+      food: lugar.food,
+    })
   }
 
   // Para mostrar na page
@@ -46,14 +62,22 @@ export class PlacesService {
     return places;
   }
 
+  // Para Trazer os dados na view (TROCAR PARA USERNAME)
+  getPlaceId(id: string): AngularFirestoreDocument<Place> {
+    var places: AngularFirestoreDocument<Place> = this.db.doc<Place>(`/places/${id}`);
+    return places;
+  }
+
   // ----------------------------------------------------------------------------------
   createComment(evento: Event){
     this.db.doc(`places/${evento.idPlace}`).update({
-      notas: evento.notas
+      notas: evento.notas,
+      notaMedia: evento.notaMedia
     })
 
     this.db.doc(`/event/${evento.uid}`).update({
-      notas: evento.notas
+      notas: evento.notas,
+      notaMedia: evento.notaMedia
     })
   }
 
@@ -64,4 +88,7 @@ export class PlacesService {
   }
 
   // ----------------------------------------------------------------------------------
+  setPage(place: string){
+
+  }
 }

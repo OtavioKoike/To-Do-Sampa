@@ -49,10 +49,10 @@ import { ForgotPasswordComponent } from './screens/Login/forgot-password/forgot-
 import { VerifyEmailComponent } from './screens/Login/verify-email/verify-email.component';
 import { SliderComponent } from './shared/slider/slider.component';
 import { SliderItemDirective } from './shared/slider/slider-item.directive';
-import { CategoriasComponent } from './screens/home/categorias/categorias.component';
+import { CategoriasComponent } from './shared/categorias/categorias.component';
 import { LugaresCadastroComponent } from './screens/lugares-cadastro/lugares-cadastro.component';
 import { LugaresViewComponent } from './screens/lugares-view/lugares-view.component';
-import { RestaurantesComponent } from './screens/restaurantes/restaurantes.component';
+import { LugaresComponent } from './screens/lugares/lugares.component';
 
 
 @NgModule({
@@ -69,7 +69,7 @@ import { RestaurantesComponent } from './screens/restaurantes/restaurantes.compo
     CategoriasComponent,
     LugaresCadastroComponent,
     LugaresViewComponent,
-    RestaurantesComponent
+    LugaresComponent
   ],
   imports: [
     BrowserModule,

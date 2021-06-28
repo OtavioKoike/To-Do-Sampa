@@ -13,12 +13,12 @@
       <!-- Exibe apenas Ipad e Desktop -->
       <div fxShow="true" fxHide.lt-md class="lista">
         <a routerLink="home" mat-button>Início</a>
-        <a routerLink="restaurante" mat-button>Restaurantes</a>
-        <a href="#" mat-button>Bares</a>
-        <a href="#" mat-button>Cafeterias</a>
-        <a href="#" mat-button>Viagens</a>
-        <a href="#" mat-button>Eventos</a>
-        <a href="#" mat-button>Outros</a>
+        <a (click)="route('Restaurantes')" mat-button>Restaurantes</a>
+        <a (click)="route('Bares')" mat-button>Bares</a>
+        <a (click)="route('Cafeterias')" mat-button>Cafeterias</a>
+        <a (click)="route('Viagens')" mat-button>Viagens</a>
+        <a (click)="route('Eventos')" mat-button>Eventos</a>
+        <a (click)="route('Outros')" mat-button>Outros</a>
         <a href="#" mat-button>Calendario</a>
       </div>
       <a class="icon" href="#" mat-button (click)="SignOut()"><mat-icon>account_circle</mat-icon></a>
@@ -31,17 +31,17 @@
       <mat-nav-list>
         <a (click)="sidenav.toggle()" routerLink="home" mat-list-item><mat-icon>home</mat-icon>Início</a>
         <mat-divider></mat-divider>
-        <a (click)="sidenav.toggle()" routerLink="restaurante" mat-list-item><mat-icon>restaurant</mat-icon>Restaurantes</a>
+        <a (click)="sidenav.toggle()" (click)="route('Restaurantes')" mat-list-item><mat-icon>restaurant</mat-icon>Restaurantes</a>
         <mat-divider></mat-divider>
-        <a (click)="sidenav.toggle()" routerLink="home" mat-list-item><mat-icon>sports_bar</mat-icon>Bares</a>
+        <a (click)="sidenav.toggle()" (click)="route('Bares')" mat-list-item><mat-icon>sports_bar</mat-icon>Bares</a>
         <mat-divider></mat-divider>
-        <a (click)="sidenav.toggle()" routerLink="home" mat-list-item><mat-icon>local_cafe</mat-icon>Cafeteria</a>
+        <a (click)="sidenav.toggle()" (click)="route('Cafeterias')" mat-list-item><mat-icon>local_cafe</mat-icon>Cafeterias</a>
         <mat-divider></mat-divider>
-        <a (click)="sidenav.toggle()" routerLink="home" mat-list-item><mat-icon>map</mat-icon>Viagens</a>
+        <a (click)="sidenav.toggle()" (click)="route('Viagens')" mat-list-item><mat-icon>map</mat-icon>Viagens</a>
         <mat-divider></mat-divider>
-        <a (click)="sidenav.toggle()" routerLink="home" mat-list-item><mat-icon>celebration</mat-icon>Eventos</a>
+        <a (click)="sidenav.toggle()" (click)="route('Eventos')" mat-list-item><mat-icon>celebration</mat-icon>Eventos</a>
         <mat-divider></mat-divider>
-        <a (click)="sidenav.toggle()" routerLink="home" mat-list-item><mat-icon>sports_esports</mat-icon>Outros</a>
+        <a (click)="sidenav.toggle()" (click)="route('Outros')" mat-list-item><mat-icon>sports_esports</mat-icon>Outros</a>
         <mat-divider></mat-divider>
         <a (click)="sidenav.toggle()" routerLink="home" mat-list-item><mat-icon>event</mat-icon>Calendario</a>
         <mat-divider></mat-divider>

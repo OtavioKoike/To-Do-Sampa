@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <span *ngIf="lugares.length > 0">
+    <div class="row mt-2 d-flex justify-content-end">
+      <mat-form-field class="col-md-3">
+        <mat-label>Filtro</mat-label>
+          <input matInput placeholder="Filtre por: Nome do Cliente" [(ngModel)]="food" (ngModelChange)="filter()">
+          <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <app-categorias categoria="Os Melhores" [lugares]="melhores"></app-categorias>
+    <app-categorias categoria="Rodizio" [lugares]="rodizio"></app-categorias>
+    <app-categorias categoria="A la Carte" [lugares]="carte"></app-categorias>
+    <app-categorias categoria="Delivery" [lugares]="delivery"></app-categorias>
+    <app-categorias categoria="Já fomos" [lugares]="fomos"></app-categorias>
+    <app-categorias categoria="Não fomos" [lugares]="nFomos"></app-categorias>
+  </span>
+
+  <div class="fab">
+    <button (click)="route()" mat-fab aria-label="Example icon button with a home icon">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
