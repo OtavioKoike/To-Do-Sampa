@@ -21,7 +21,6 @@ export class LugaresComponent implements OnInit {
   fomos: Place[];
   nFomos: Place[];
 
-  lugaresAux$: Observable<Place[]>;
   lugaresAux: Place[];
 
   food = ''
@@ -42,6 +41,7 @@ export class LugaresComponent implements OnInit {
     this.lugares$ = this.placesService.getPlaces(this.page).valueChanges({idField : 'uid'});
     this.lugares$.subscribe(lugares => {
       this.lugares = lugares;
+      this.lugaresAux = lugares;
       this.separa(lugares)
     })
   }
@@ -60,10 +60,11 @@ export class LugaresComponent implements OnInit {
   }
 
   filter(){
-    let lugares = this.lugares.filter(
+    this.lugares = this.lugaresAux.filter(
       lugar => lugar.food.startsWith(this.food.charAt(0).toUpperCase() + this.food.slice(1))
+      || lugar.username.startsWith(this.food.toLowerCase())
     )
-      this.separa(lugares)
+      this.separa(this.lugares)
   }
 
 }
