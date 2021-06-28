@@ -1,3 +1,4 @@
+import { LugaresComponent } from './screens/lugares/lugares.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 //Guards
@@ -11,7 +12,7 @@ import { SignUpComponent } from './screens/Login/sign-up/sign-up.component';
 import { SignInComponent } from './screens/Login/sign-in/sign-in.component';
 //Outros
 import { HomeComponent } from './screens/home/home.component';
-import { MenuComponent } from './screens/menu/menu.component';
+import { MenuComponent } from './shared/menu/menu.component';
 import { LugaresCadastroComponent } from './screens/lugares-cadastro/lugares-cadastro.component';
 import { LugaresViewComponent } from './screens/lugares-view/lugares-view.component';
 
@@ -28,7 +29,12 @@ export const routes: Routes = [
       { path:'home', component: HomeComponent, canActivate: [AuthGuard]},
       { path:'cadastro', component: LugaresCadastroComponent, canActivate: [AuthGuard]},
       { path:'view', component: LugaresViewComponent, canActivate: [AuthGuard]},
-
+      { path: 'restaurantes', component: LugaresComponent, canActivate: [AuthGuard]},
+      { path: 'bares', component: LugaresComponent, canActivate: [AuthGuard]},
+      { path: 'cafeterias', component: LugaresComponent, canActivate: [AuthGuard]},
+      { path: 'viagens', component: LugaresComponent, canActivate: [AuthGuard]},
+      { path: 'eventos', component: LugaresComponent, canActivate: [AuthGuard]},
+      { path: 'outros', component: LugaresComponent, canActivate: [AuthGuard]},
     ]
   }
 ]

@@ -4,7 +4,7 @@
   </div>
 
   <app-slider>
-      <div appSliderItem *ngFor="let lugar of lugares$ | async">
+      <div appSliderItem *ngFor="let lugar of lugares">
         <a (click)="route(lugar)"><mat-card class="example-card" [style.background-image]="'url('+lugar?.photoUrl+')'">
           <div class="carousel-caption">
             <p>{{lugar?.username}}</p>

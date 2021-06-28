@@ -1,3 +1,4 @@
+import { EventsService } from './../../services/events.service';
 import { Component, OnInit } from '@angular/core';
 import { isUndefined } from 'util';
 import { Observable } from 'rxjs';
@@ -17,11 +18,16 @@ import { PlacesService } from './../../services/places.service';
 })
 export class LugaresCadastroComponent implements OnInit {
 
+  titulo: string;
+
   lugar = {} as Place
   evento = {} as Event
 
   data = ''
   existe = false;
+
+  idEvent: string;
+  edit:boolean;
 
   //Para upload da imagem
   uploadPercent: Observable<number>;
@@ -31,11 +37,22 @@ export class LugaresCadastroComponent implements OnInit {
 
   constructor(
     private placesService: PlacesService,
+    private eventsService: EventsService,
     private router: Router,
     private storage: AngularFireStorage
   ) { }
 
   ngOnInit(): void {
+    this.edit = JSON.parse(localStorage.getItem('edit'));
+    this.edit ? this.titulo = "Algo errado no Lugar?": this.titulo = 'Bora cadastrar um role?';
+
+    this.idEvent = JSON.parse(localStorage.getItem('idEvent'));
+    if(this.idEvent !== null){
+      this.placesService.getPlaceId(this.idEvent).valueChanges({idField : 'uid'}).subscribe(lugar => {
+        this.lugar = lugar;
+        this.existe = true;
+      })
+    }
   }
 
   buscaLugar(){
@@ -50,7 +67,16 @@ export class LugaresCadastroComponent implements OnInit {
   }
 
   route(){
-    this.router.navigate(['menu/home']);
+    let rota = JSON.parse(localStorage.getItem('rota'));
+    if(rota === "Home"){
+      this.router.navigate(['menu/home']);
+    }
+    else {
+      let page: string;
+      page = JSON.parse(localStorage.getItem('pagePlace'));
+      page = page.toLowerCase()
+      this.router.navigate([`menu/${page}`]);
+    }
   }
 
   upload(event) {
@@ -70,8 +96,12 @@ export class LugaresCadastroComponent implements OnInit {
 
   onSubmit(){
     this.lugar.username = this.lugar.username.trim();
+    this.lugar.food = (this.lugar.food.charAt(0).toUpperCase() + this.lugar.food.slice(1)).trim();
+    // Buscar se ja existe essa comida nessa categoria
+
     if(!this.existe){
       this.lugar.notas = [];
+      this.lugar.notaMedia = 0;
       this.lugar.finish = false;
       this.lugar.uid = this.placesService.createPlace(this.lugar);
     }
@@ -81,9 +111,12 @@ export class LugaresCadastroComponent implements OnInit {
     this.evento.username = this.lugar.username;
     this.evento.description = this.lugar.description;
     this.evento.notas = this.lugar.notas;
+    this.evento.notaMedia = this.lugar.notaMedia;
     this.evento.finish = this.lugar.finish;
     this.evento.type = this.lugar.type;
     this.evento.idPlace = this.lugar.uid;
+    this.evento.sistema = this.lugar.sistema;
+    this.evento.food = this.lugar.food;
 
     if(isUndefined(this.data) || this.data === null){
       this.evento.date = ''
@@ -95,7 +128,11 @@ export class LugaresCadastroComponent implements OnInit {
       this.evento.days = null
     }
 
-    this.placesService.createEvent(this.evento);
+    if(!this.edit){
+      this.eventsService.createEvent(this.evento);
+    }else{
+      this.placesService.editPlace(this.evento);
+    }
     this.route();
   }
 

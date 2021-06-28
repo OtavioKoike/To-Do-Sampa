@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 //Service
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -10,7 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class MenuComponent implements OnInit {
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -18,6 +20,10 @@ export class MenuComponent implements OnInit {
 
   SignOut(){
     this.authService.SignOut();
+  }
+
+  route(place: string){
+    localStorage.setItem('pagePlace', JSON.stringify(place));
   }
 
 }
