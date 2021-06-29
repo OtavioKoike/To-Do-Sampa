@@ -20,27 +20,29 @@ export class CalendarioComponent implements OnInit {
   constructor(private calendarService: CalendarService) { }
 
   ngOnInit(): void {
-    this.datas$ = this.calendarService.getCalendar().valueChanges({idField : 'uid'});
+    this.datas$ = this.calendarService.getCalendar().valueChanges({idField : 'id'});
     this.datas$.subscribe(datas => {
       this.datas = datas;
       this.calendarOptions = {
         initialView: 'dayGridMonth',
+        height: 580,
         locale: esLocale,
-        dateClick: this.handleDateClick.bind(this), // bind is important!
         events: this.datas,
         eventColor: 'rgba(183, 28, 28)',
         eventTextColor: '#fff',
-        height: 600,
-        footerToolbar: {
-          center: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-        },
-        titleFormat: { year: 'numeric', month: 'numeric' }
+        titleFormat: { year: 'numeric', month: 'numeric' },
+        footerToolbar: {center: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'},
+        navLinks: true,
+        eventClick: function(event) {
+          localStorage.setItem('idEvent', JSON.stringify(event.event.id));
+          if(window.confirm("Role: " + event.event.title +
+          "\nData: " + ("0" + (event.event.start.getDate())).slice(-2) + "/" + ("0" + (event.event.start.getMonth() + 1)).slice(-2) +
+          "\n\nVer Role?")){window.location.href = '/menu/view'}
+
+          return false;
+      },
       }
     })
-  }
-
-  handleDateClick(arg) {
-    alert('date click! ' + arg.dateStr)
   }
 
 }

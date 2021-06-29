@@ -1,3 +1,4 @@
+import { Nota } from './../model/nota';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, CollectionReference } from '@angular/fire/firestore';
 //Model
@@ -14,20 +15,23 @@ export class PlacesService {
 
   // Places
   createPlace(lugar: Place): string{
-    var id = this.db.createId();
-    this.db.doc(`places/${id}`).set({
-      photoUrl: lugar.photoUrl,
-      link: lugar.link,
-      username: lugar.username,
-      description: lugar.description,
-      notas: lugar.notas,
-      notaMedia: lugar.notaMedia,
-      finish: lugar.finish,
-      type: lugar.type,
-      sistema: lugar.sistema,
-      food: lugar.food,
-    })
-    return id;
+    try{
+      this.db.doc(`places/${lugar.username}`).set({
+        photoUrl: lugar.photoUrl,
+        link: lugar.link,
+        username: lugar.username,
+        description: lugar.description,
+        notaMedia: lugar.notaMedia,
+        finish: lugar.finish,
+        type: lugar.type,
+        sistema: lugar.sistema,
+        food: lugar.food,
+      })
+      return lugar.username;
+    }catch(e){
+      window.alert("Local Existente")
+    }
+
   }
 
   editPlace(lugar: Event){
@@ -36,7 +40,6 @@ export class PlacesService {
       link: lugar.link,
       username: lugar.username,
       description: lugar.description,
-      notas: lugar.notas,
       notaMedia: lugar.notaMedia,
       finish: lugar.finish,
       type: lugar.type,
@@ -69,21 +72,34 @@ export class PlacesService {
   }
 
   // ----------------------------------------------------------------------------------
-  createComment(evento: Event){
-    this.db.doc(`places/${evento.idPlace}`).update({
-      notas: evento.notas,
-      notaMedia: evento.notaMedia
-    })
+  getComment(id: string): AngularFirestoreCollection<Nota> {
+    var mensagens: AngularFirestoreCollection<Nota> = this.db.collection<Nota>(`places/${id}/avaliacoes`,
+    (ref: CollectionReference) => ref.orderBy('data'));
+    return mensagens;
+  }
 
-    this.db.doc(`/event/${evento.uid}`).update({
-      notas: evento.notas,
-      notaMedia: evento.notaMedia
+  createComment(evento: Event, nota: Nota){
+    this.db.doc(`places/${evento.idPlace}/avaliacoes/${this.db.createId()}`).set({
+      author: nota.author,
+      value: nota.value,
+      data: nota.data,
+      description: nota.description,
     })
+  }
+
+  deleteComment(evento: Event, nota: Nota){
+    this.db.doc(`places/${evento.idPlace}/avaliacoes/${nota.uid}`).delete()
   }
 
   updateFinish(uid: string){
     this.db.doc(`places/${uid}`).update({
       finish: true
+    })
+  }
+
+  updateNotaMedia(id: string, nota: number){
+    this.db.doc(`places/${id}`).update({
+      notaMedia: nota
     })
   }
 

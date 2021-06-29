@@ -76,9 +76,9 @@
           </div>
         </div>
 
-        <div class="col-md" *ngIf="evento.notas?.length > 0">
+        <div class="col-md" *ngIf="mensagens?.length > 0">
           <h5>Aqui temos alguns comentarios:</h5>
-          <div class="row" *ngFor="let comentario of this.evento.notas.reverse()">
+          <div class="row" *ngFor="let comentario of mensagens.reverse()">
             <div class="col mt-3 mt-xl-3 mt-md-1">
               <p>
                 {{comentario.author}}

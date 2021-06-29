@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { CalendarService } from './../../services/calendar.service';
 import { EventsService } from './../../services/events.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -20,6 +21,10 @@ export class LugaresViewComponent implements OnInit {
   evento = {} as any;
   stars: number;
 
+  mensagens$: Observable<Nota[]>
+  mensagens: Nota[]
+  idMensagens: string
+
   data
   altera = false;
 
@@ -41,20 +46,42 @@ export class LugaresViewComponent implements OnInit {
         this.eventsService.getEvent(uid).valueChanges({idField: 'uid'}).subscribe(event => {
           this.evento = event;
           this.data = new Date(this.evento.date.seconds * 1000)
-          this.stars = this.evento.notaMedia;
-          this.stars = Math.round(this.stars);
+          this.idMensagens = event.idPlace;
+          this.comments()
         })
       }else if(this.rota === 'Lugares'){
         this.placeService.getPlaceId(uid).valueChanges({idField: 'uid'}).subscribe(place => {
           this.evento = place;
-          this.stars = this.evento.notaMedia;
-          this.stars = Math.round(this.stars);
+          this.idMensagens = place.uid
+          this.comments()
         })
       }
+
 
   }
 
   ngOnInit(): void {
+  }
+
+  comments(){
+    this.mensagens$ = this.placeService.getComment(this.idMensagens).valueChanges({idField: 'uid'});
+    this.mensagens$.subscribe(mensagens => {
+      this.mensagens = mensagens;
+      if(this.rota === 'Home'){
+        let notaMediaMessage
+        if(mensagens.length > 0){
+          notaMediaMessage = mensagens.reduce((total, nota) => total + nota.value, 0) / mensagens.length;
+        }else{
+          notaMediaMessage = 0;
+        }
+        if(this.evento.notaMedia !== notaMediaMessage){
+          this.evento.notaMedia = notaMediaMessage;
+          this.eventsService.updateNota(this.evento)
+        }
+      }
+      this.stars = this.evento.notaMedia;
+      this.stars = Math.round(this.stars);
+    })
   }
 
   route(){
@@ -71,16 +98,26 @@ export class LugaresViewComponent implements OnInit {
     this.descriptComment = '';
     this.starsComment = 0;
 
-    this.evento.notas.push(comentario)
-    this.evento.notaMedia = this.evento.notas.reduce((total, nota) => total + nota.value, 0) / this.evento.notas.length;
-    this.placeService.createComment(this.evento);
+    this.mensagens.push(comentario)
+    let notaMediaMensagens = this.mensagens.reduce((total, nota) => total + nota.value, 0) / this.mensagens.length;
+    this.placeService.updateNotaMedia(this.idMensagens, notaMediaMensagens)
+
+    this.placeService.createComment(this.evento, comentario);
+
   }
 
   deleteComment(comentario: Nota){
-    let index = this.evento.notas.indexOf(comentario)
-    this.evento.notas.splice(index, 1);
-    this.evento.notaMedia = this.evento.notas.reduce((total, nota) => total + nota.value, 0) / this.evento.notas.length;
-    this.placeService.createComment(this.evento);
+    let notaMediaMensagens
+    let index = this.mensagens.indexOf(comentario)
+    this.mensagens.splice(index, 1);
+    if(this.mensagens.length > 0){
+      notaMediaMensagens = this.mensagens.reduce((total, nota) => total + nota.value, 0) / this.mensagens.length;
+    }else{
+      notaMediaMensagens = 0;
+    }
+    this.placeService.updateNotaMedia(this.idMensagens, notaMediaMensagens)
+
+    this.placeService.deleteComment(this.evento, comentario);
   }
 
   transformaData(data){

@@ -108,7 +108,6 @@ export class LugaresCadastroComponent implements OnInit {
     // Buscar se ja existe essa comida nessa categoria
 
     if(!this.existe){
-      this.lugar.notas = [];
       this.lugar.notaMedia = 0;
       this.lugar.finish = false;
       // this.lugar.uid = this.lugar.username
@@ -119,7 +118,6 @@ export class LugaresCadastroComponent implements OnInit {
     this.evento.link = this.lugar.link;
     this.evento.username = this.lugar.username;
     this.evento.description = this.lugar.description;
-    this.evento.notas = this.lugar.notas;
     this.evento.notaMedia = this.lugar.notaMedia;
     this.evento.finish = this.lugar.finish;
     this.evento.type = this.lugar.type;

@@ -16,7 +16,6 @@ export class EventsService {
       link: event.link,
       username: event.username,
       description: event.description,
-      notas: event.notas,
       notaMedia: event.notaMedia,
       finish: event.finish,
       type: event.type,
@@ -52,6 +51,12 @@ export class EventsService {
     this.db.doc(`/event/${evento.uid}`).update({
       date: evento.date,
       days: evento.days
+    })
+  }
+
+  updateNota(evento: Event){
+    this.db.doc(`/event/${evento.uid}`).update({
+      notaMedia: evento.notaMedia
     })
   }
 }

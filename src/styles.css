@@ -13,3 +13,12 @@
   white-space: nowrap;
   border: 0;
 }
+
+/* Configuração Calendario */
+a {
+  text-decoration:none;
+}
+
+.fc-daygrid-day-number, .fc-col-header-cell-cushion {
+  color: black;
+}

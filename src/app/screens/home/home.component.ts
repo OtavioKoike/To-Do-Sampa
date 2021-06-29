@@ -12,6 +12,7 @@ import { EventsService } from 'src/app/services/events.service';
 export class HomeComponent implements OnInit {
 
   lugares$: Observable<Event[]>;
+  lugares: Event[];
 
   restaurantes: Event[];
   bares: Event[];
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.lugares$ = this.eventsService.getEvents().valueChanges({idField : 'uid'});
     this.lugares$.subscribe(lugares => {
+      this.lugares = lugares;
       this.restaurantes = lugares.filter(lugar => lugar.type === 'Restaurantes').splice(0, 10);
       this.bares = lugares.filter(lugar => lugar.type === 'Bares').splice(0, 10);
       this.cafeterias = lugares.filter(lugar => lugar.type === 'Cafeterias').splice(0, 10);
