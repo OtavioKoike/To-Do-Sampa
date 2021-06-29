@@ -1,3 +1,5 @@
+import { CalendarService } from './../../services/calendar.service';
+import { Calendario } from '../../model/calendario';
 import { EventsService } from './../../services/events.service';
 import { Component, OnInit } from '@angular/core';
 import { isUndefined } from 'util';
@@ -10,6 +12,7 @@ import { Event } from './../../model/event';
 import { Place } from 'src/app/model/place';
 //Service
 import { PlacesService } from './../../services/places.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-lugares-cadastro',
@@ -38,8 +41,10 @@ export class LugaresCadastroComponent implements OnInit {
   constructor(
     private placesService: PlacesService,
     private eventsService: EventsService,
+    private calendarService: CalendarService,
     private router: Router,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private db: AngularFirestore
   ) { }
 
   ngOnInit(): void {
@@ -95,6 +100,9 @@ export class LugaresCadastroComponent implements OnInit {
   }
 
   onSubmit(){
+    let calendar = {} as Calendario;
+    calendar.title = this.lugar.username.trim();
+
     this.lugar.username = this.lugar.username.trim();
     this.lugar.food = (this.lugar.food.charAt(0).toUpperCase() + this.lugar.food.slice(1)).trim();
     // Buscar se ja existe essa comida nessa categoria
@@ -103,6 +111,7 @@ export class LugaresCadastroComponent implements OnInit {
       this.lugar.notas = [];
       this.lugar.notaMedia = 0;
       this.lugar.finish = false;
+      // this.lugar.uid = this.lugar.username
       this.lugar.uid = this.placesService.createPlace(this.lugar);
     }
 
@@ -118,18 +127,31 @@ export class LugaresCadastroComponent implements OnInit {
     this.evento.sistema = this.lugar.sistema;
     this.evento.food = this.lugar.food;
 
-    if(isUndefined(this.data) || this.data === null){
+    if(isUndefined(this.data) || this.data === null || this.data === ''){
       this.evento.date = ''
+      calendar.start = ''
+      calendar.end = ''
     }else{
       this.evento.date = this.data;
+      let startDate = new Date(this.data);
+      calendar.start = startDate.getFullYear() + '-' + ("0" + (startDate.getMonth() + 1)).slice(-2) + '-' + ("0" + startDate.getDate()).slice(-2)
+      let endDate = startDate;
+      if(!isUndefined(this.evento.days)){
+        endDate.setDate(endDate.getDate() + this.evento.days)
+      }
+      calendar.end = endDate.getFullYear() + '-' + ("0" + (endDate.getMonth() + 1)).slice(-2) + '-' + ("0" + endDate.getDate()).slice(-2)
     }
 
+    // 2021-06-01
     if(isUndefined(this.evento.days)){
       this.evento.days = null
     }
 
     if(!this.edit){
+      this.evento.uid = this.db.createId()
       this.eventsService.createEvent(this.evento);
+      calendar.uid = this.evento.uid
+      this.calendarService.createCalendar(calendar)
     }else{
       this.placesService.editPlace(this.evento);
     }

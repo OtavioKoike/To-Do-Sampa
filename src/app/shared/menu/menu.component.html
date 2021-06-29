@@ -19,7 +19,7 @@
         <a routerLink="/menu/viagens" (click)="route('Viagens')" mat-button routerLinkActive="active-list-item">Viagens</a>
         <a routerLink="/menu/eventos" (click)="route('Eventos')" mat-button routerLinkActive="active-list-item">Eventos</a>
         <a routerLink="/menu/outros" (click)="route('Outros')" mat-button routerLinkActive="active-list-item">Outros</a>
-        <a href="#" mat-button routerLinkActive="active-list-item">Calendario</a>
+        <a routerLink="/menu/calendario" mat-button routerLinkActive="active-list-item">Calendario</a>
       </div>
       <a class="icon" href="#" mat-button (click)="SignOut()"><mat-icon>account_circle</mat-icon></a>
     </mat-toolbar-row>
@@ -43,7 +43,7 @@
         <mat-divider></mat-divider>
         <a (click)="sidenav.toggle()" routerLink="/menu/outros" (click)="route('Outros')" mat-list-item routerLinkActive="active-list-item"><mat-icon>sports_esports</mat-icon>Outros</a>
         <mat-divider></mat-divider>
-        <a (click)="sidenav.toggle()" routerLink="#" mat-list-item routerLinkActive="active-list-item"><mat-icon>event</mat-icon>Calendario</a>
+        <a (click)="sidenav.toggle()" routerLink="/menu/calendario" mat-list-item routerLinkActive="active-list-item"><mat-icon>event</mat-icon>Calendario</a>
         <mat-divider></mat-divider>
       </mat-nav-list>
     </mat-sidenav>

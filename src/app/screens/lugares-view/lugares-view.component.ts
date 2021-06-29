@@ -1,3 +1,4 @@
+import { CalendarService } from './../../services/calendar.service';
 import { EventsService } from './../../services/events.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { isUndefined } from 'util';
@@ -7,6 +8,7 @@ import { Event } from './../../model/event';
 import { Nota } from './../../model/nota';
 //Service
 import { PlacesService } from './../../services/places.service';
+import { Calendario } from 'src/app/model/calendario';
 
 @Component({
   selector: 'app-lugares-view',
@@ -28,6 +30,7 @@ export class LugaresViewComponent implements OnInit {
   constructor(
     private eventsService: EventsService,
     private placeService: PlacesService,
+    private calendarService: CalendarService,
     private router: Router,
     ) {
       this.rota = JSON.parse(localStorage.getItem('rota'));
@@ -91,16 +94,31 @@ export class LugaresViewComponent implements OnInit {
   }
 
   onDate(){
-    if(isUndefined(this.data) || this.data === null){
+    let calendar = {} as Calendario;
+    calendar.title = this.evento.username;
+    calendar.uid = this.evento.uid;
+
+    if(isUndefined(this.data) || this.data === null || this.data === ''){
       this.evento.date = ''
+      calendar.start = ''
+      calendar.end = ''
     }else{
       this.evento.date = this.data;
+
+      let startDate = new Date(this.data);
+      calendar.start = startDate.getFullYear() + '-' + ("0" + (startDate.getMonth() + 1)).slice(-2) + '-' + ("0" + startDate.getDate()).slice(-2)
+      let endDate = startDate;
+      if(!isUndefined(this.evento.days)){
+        endDate.setDate(endDate.getDate() + this.evento.days)
+      }
+      calendar.end = endDate.getFullYear() + '-' + ("0" + (endDate.getMonth() + 1)).slice(-2) + '-' + ("0" + endDate.getDate()).slice(-2)
     }
 
     if(isUndefined(this.evento.days)){
       this.evento.days = null
     }
 
+    this.calendarService.editCalendar(calendar)
     this.eventsService.updateData(this.evento);
     window.alert("Data Alterada!")
   }
@@ -108,6 +126,7 @@ export class LugaresViewComponent implements OnInit {
   onDelete(){
     if(window.confirm("Realmente não vai rolar?")){
       this.eventsService.deleteEvent(this.evento);
+      this.calendarService.deleteCalendar(this.evento.uid)
       this.router.navigate(['menu/home']);
     }
   }
@@ -116,6 +135,7 @@ export class LugaresViewComponent implements OnInit {
     if(window.confirm("Você e toda galera já deram a nota?")){
       if(!this.evento.finish){ this.placeService.updateFinish(this.evento.idPlace) }
       this.eventsService.deleteEvent(this.evento);
+      this.calendarService.deleteCalendar(this.evento.uid)
       this.router.navigate(['menu/home']);
     }
   }
