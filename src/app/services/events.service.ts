@@ -11,7 +11,7 @@ export class EventsService {
 
   // Eventos
   createEvent(event: Event){
-    this.db.doc(`event/${this.db.createId()}`).set({
+    this.db.doc(`event/${event.uid}`).set({
       photoUrl: event.photoUrl,
       link: event.link,
       username: event.username,

@@ -1,4 +1,3 @@
-import { LugaresComponent } from './screens/lugares/lugares.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 //Guards
@@ -15,6 +14,8 @@ import { HomeComponent } from './screens/home/home.component';
 import { MenuComponent } from './shared/menu/menu.component';
 import { LugaresCadastroComponent } from './screens/lugares-cadastro/lugares-cadastro.component';
 import { LugaresViewComponent } from './screens/lugares-view/lugares-view.component';
+import { CalendarioComponent } from './screens/calendario/calendario.component';
+import { LugaresComponent } from './screens/lugares/lugares.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
@@ -35,6 +36,7 @@ export const routes: Routes = [
       { path: 'viagens', component: LugaresComponent, canActivate: [AuthGuard]},
       { path: 'eventos', component: LugaresComponent, canActivate: [AuthGuard]},
       { path: 'outros', component: LugaresComponent, canActivate: [AuthGuard]},
+      { path: 'calendario', component: CalendarioComponent, canActivate: [AuthGuard]},
     ]
   }
 ]

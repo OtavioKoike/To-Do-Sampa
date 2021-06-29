@@ -14,6 +14,13 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 //Ng Boootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+// Calendar
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+
 //Firebase
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -53,7 +60,14 @@ import { CategoriasComponent } from './shared/categorias/categorias.component';
 import { LugaresCadastroComponent } from './screens/lugares-cadastro/lugares-cadastro.component';
 import { LugaresViewComponent } from './screens/lugares-view/lugares-view.component';
 import { LugaresComponent } from './screens/lugares/lugares.component';
+import { CalendarioComponent } from './screens/calendario/calendario.component';
 
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  timeGridPlugin,
+  listPlugin,
+  interactionPlugin,
+]);
 
 @NgModule({
   declarations: [
@@ -69,7 +83,8 @@ import { LugaresComponent } from './screens/lugares/lugares.component';
     CategoriasComponent,
     LugaresCadastroComponent,
     LugaresViewComponent,
-    LugaresComponent
+    LugaresComponent,
+    CalendarioComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +109,8 @@ import { LugaresComponent } from './screens/lugares/lugares.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    NgbModule
+    NgbModule,
+    FullCalendarModule
   ],
   providers: [
     AuthService,
