@@ -1,4 +1,5 @@
 import { Component, AfterContentInit, ContentChildren, ViewChild, QueryList, ElementRef } from '@angular/core';
+// Diretiva
 import { SliderItemDirective } from './slider-item.directive';
 
 @Component({
@@ -8,8 +9,7 @@ import { SliderItemDirective } from './slider-item.directive';
 })
 export class SliderComponent implements AfterContentInit {
 
-  @ContentChildren(SliderItemDirective, { read: ElementRef }) items
-    : QueryList<ElementRef<HTMLDivElement>>;
+  @ContentChildren(SliderItemDirective, { read: ElementRef }) items: QueryList<ElementRef<HTMLDivElement>>;
   @ViewChild('slides') slidesContainer: ElementRef<HTMLDivElement>;
 
   private slidesIndex = 0;

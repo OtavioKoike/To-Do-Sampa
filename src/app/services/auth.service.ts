@@ -3,8 +3,7 @@ import { Router } from "@angular/router";
 
 //Firebase
 import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFirestore, AngularFirestoreCollection,
-         AngularFirestoreDocument, CollectionReference } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, CollectionReference } from '@angular/fire/firestore';
 //Model
 import { User } from "../model/user";
 

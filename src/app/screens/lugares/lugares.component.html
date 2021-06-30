@@ -7,7 +7,7 @@
     </mat-form-field>
   </div>
 
-  <span *ngIf="lugares.length > 0">
+  <span *ngIf="lugares?.length > 0">
     <app-categorias categoria="Os Melhores" [lugares]="melhores"></app-categorias>
     <app-categorias categoria="Rodizio" [lugares]="rodizio"></app-categorias>
     <app-categorias categoria="A la Carte" [lugares]="carte"></app-categorias>
@@ -15,9 +15,9 @@
     <app-categorias categoria="Já fomos" [lugares]="fomos"></app-categorias>
     <app-categorias categoria="Não fomos" [lugares]="nFomos"></app-categorias>
   </span>
-  <span *ngIf="lugares.length === 0">
+  <span *ngIf="lugares?.length === 0">
     <div class="row">
-      <span class="text-center max">Nenhum Item Encontrado</span>
+      <span class="text-center max">Nenhum Local Cadastrado</span>
     </div>
   </span>
 

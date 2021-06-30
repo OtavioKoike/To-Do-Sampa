@@ -1,6 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css";
-
 /* Sistema de notas por estrelas */
 .sr-only {
   position: absolute;
@@ -13,3 +10,16 @@
   white-space: nowrap;
   border: 0;
 }
+
+/* ------------------------------ */
+/* Propriedades Calendario */
+a, a:hover {
+  text-decoration:none;
+  color: black;
+}
+
+.fc-daygrid-day-number, .fc-col-header-cell-cushion {
+  color: black;
+}
+
+/* ------------------------------ */
