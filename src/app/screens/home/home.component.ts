@@ -1,7 +1,9 @@
-import { Event } from './../../model/event';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+// Model
+import { Event } from './../../model/event';
+// Service
 import { EventsService } from 'src/app/services/events.service';
 
 @Component({

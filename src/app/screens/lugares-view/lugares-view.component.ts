@@ -1,15 +1,14 @@
-import { Observable } from 'rxjs';
-import { CalendarService } from './../../services/calendar.service';
-import { EventsService } from './../../services/events.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { isUndefined } from 'util';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 //Model
-import { Event } from './../../model/event';
+import { Calendario } from 'src/app/model/calendario';
 import { Nota } from './../../model/nota';
 //Service
+import { CalendarService } from './../../services/calendar.service';
+import { EventsService } from './../../services/events.service';
 import { PlacesService } from './../../services/places.service';
-import { Calendario } from 'src/app/model/calendario';
 
 @Component({
   selector: 'app-lugares-view',
@@ -26,41 +25,45 @@ export class LugaresViewComponent implements OnInit {
   idMensagens: string
 
   data
-  altera = false;
 
   starsComment = 0;
   descriptComment = '';
+
   user;
   rota;
+  altera = false;
+
   constructor(
+    private calendarService: CalendarService,
     private eventsService: EventsService,
     private placeService: PlacesService,
-    private calendarService: CalendarService,
     private router: Router,
-    ) {
-      this.rota = JSON.parse(localStorage.getItem('rota'));
-      this.user =  JSON.parse(localStorage.getItem('userCompleto'));
-      var uid = JSON.parse(localStorage.getItem('idEvent'))
+  ) {
+    this.rota = JSON.parse(localStorage.getItem('rota'));
+    var uid = JSON.parse(localStorage.getItem('idEvent'))
+    this.user =  JSON.parse(localStorage.getItem('userCompleto'));
 
-      if(this.rota === 'Home'){
-        this.eventsService.getEvent(uid).valueChanges({idField: 'uid'}).subscribe(event => {
-          this.evento = event;
-          this.data = new Date(this.evento.date.seconds * 1000)
-          this.idMensagens = event.idPlace;
-          this.comments()
-        })
-      }else if(this.rota === 'Lugares'){
-        this.placeService.getPlaceId(uid).valueChanges({idField: 'uid'}).subscribe(place => {
-          this.evento = place;
-          this.idMensagens = place.uid
-          this.comments()
-        })
-      }
-
-
+    if(this.rota === 'Home'){
+      this.eventsService.getEvent(uid).valueChanges({idField: 'uid'}).subscribe(event => {
+        this.evento = event;
+        this.data = new Date(this.evento.date.seconds * 1000)
+        this.idMensagens = event.idPlace;
+        this.comments()
+      })
+    }else if(this.rota === 'Lugares'){
+      this.placeService.getPlaceId(uid).valueChanges({idField: 'uid'}).subscribe(place => {
+        this.evento = place;
+        this.idMensagens = place.uid
+        this.comments()
+      })
+    }
   }
 
   ngOnInit(): void {
+  }
+
+  route(){
+    this.router.navigate(['menu/home']);
   }
 
   comments(){
@@ -84,10 +87,6 @@ export class LugaresViewComponent implements OnInit {
     })
   }
 
-  route(){
-    this.router.navigate(['menu/home']);
-  }
-
   onComment(){
     let comentario = {} as Nota
     comentario.author = this.user.username;
@@ -103,7 +102,6 @@ export class LugaresViewComponent implements OnInit {
     this.placeService.updateNotaMedia(this.idMensagens, notaMediaMensagens)
 
     this.placeService.createComment(this.evento, comentario);
-
   }
 
   deleteComment(comentario: Nota){
@@ -118,16 +116,6 @@ export class LugaresViewComponent implements OnInit {
     this.placeService.updateNotaMedia(this.idMensagens, notaMediaMensagens)
 
     this.placeService.deleteComment(this.evento, comentario);
-  }
-
-  transformaData(data){
-    var day: Date
-    if(isUndefined(data.seconds)){
-      day = data;
-    }else{
-      day = new Date(data.seconds * 1000);
-    }
-    return day.getDate() + "/" + (day.getMonth()+1) + "/" + day.getFullYear()
   }
 
   onDate(){
@@ -160,12 +148,23 @@ export class LugaresViewComponent implements OnInit {
     window.alert("Data Alterada!")
   }
 
-  onDelete(){
-    if(window.confirm("Realmente não vai rolar?")){
-      this.eventsService.deleteEvent(this.evento);
-      this.calendarService.deleteCalendar(this.evento.uid)
-      this.router.navigate(['menu/home']);
+  transformaData(data){
+    var day: Date
+    if(isUndefined(data.seconds)){
+      day = data;
+    }else{
+      day = new Date(data.seconds * 1000);
     }
+    return day.getDate() + "/" + (day.getMonth()+1) + "/" + day.getFullYear()
+  }
+
+  onCreate(){
+    this.router.navigate(['menu/cadastro']);
+  }
+
+  onEdit(){
+    localStorage.setItem('edit', JSON.stringify(true));
+    this.router.navigate(['menu/cadastro']);
   }
 
   onFinish(){
@@ -177,13 +176,12 @@ export class LugaresViewComponent implements OnInit {
     }
   }
 
-  onCreate(){
-    this.router.navigate(['menu/cadastro']);
-  }
-
-  onEdit(){
-    localStorage.setItem('edit', JSON.stringify(true));
-    this.router.navigate(['menu/cadastro']);
+  onDelete(){
+    if(window.confirm("Realmente não vai rolar?")){
+      this.eventsService.deleteEvent(this.evento);
+      this.calendarService.deleteCalendar(this.evento.uid)
+      this.router.navigate(['menu/home']);
+    }
   }
 
 }

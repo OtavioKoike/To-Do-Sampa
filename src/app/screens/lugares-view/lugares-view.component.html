@@ -36,16 +36,16 @@
         <div class="col" *ngIf="rota === 'Home'">
           <div class="row mt-3" >
             <h5>Data do role:</h5>
-              <mat-form-field class="col-6" appearance="outline">
-                <mat-label>Data</mat-label>
-                <input matInput [matDatepicker]="picker" ngModel [(ngModel)]="data" name="data">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-              <mat-form-field class="col-6 col-xl-3" appearance="outline">
-                <mat-label>Dias</mat-label>
-                <input matInput type="number" [(ngModel)]="evento.days"  name="dias">
-              </mat-form-field>
+            <mat-form-field class="col-6" appearance="outline">
+              <mat-label>Data</mat-label>
+              <input matInput [matDatepicker]="picker" ngModel [(ngModel)]="data" name="data">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="col-6 col-xl-3" appearance="outline">
+              <mat-label>Dias</mat-label>
+              <input matInput type="number" [(ngModel)]="evento.days"  name="dias">
+            </mat-form-field>
           </div>
           <div class="row" *ngIf="rota === 'Home'">
             <button class="col-xl-3 margem col" (click)="onDate()" mat-raised-button color="accent" >Alterar Data</button>

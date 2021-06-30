@@ -1,4 +1,3 @@
-import { Nota } from './nota';
 export interface Place {
   description: string;
   finish: boolean;

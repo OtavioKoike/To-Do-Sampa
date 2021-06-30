@@ -1,18 +1,18 @@
-import { CalendarService } from './../../services/calendar.service';
-import { Calendario } from '../../model/calendario';
-import { EventsService } from './../../services/events.service';
 import { Component, OnInit } from '@angular/core';
 import { isUndefined } from 'util';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 // Firebase Storage
+import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireUploadTask, AngularFireStorage } from '@angular/fire/storage';
 // Model
+import { Calendario } from '../../model/calendario';
 import { Event } from './../../model/event';
 import { Place } from 'src/app/model/place';
 //Service
+import { CalendarService } from './../../services/calendar.service';
+import { EventsService } from './../../services/events.service';
 import { PlacesService } from './../../services/places.service';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-lugares-cadastro',
@@ -39,12 +39,12 @@ export class LugaresCadastroComponent implements OnInit {
   complete: boolean;
 
   constructor(
-    private placesService: PlacesService,
-    private eventsService: EventsService,
-    private calendarService: CalendarService,
-    private router: Router,
+    private db: AngularFirestore,
     private storage: AngularFireStorage,
-    private db: AngularFirestore
+    private calendarService: CalendarService,
+    private eventsService: EventsService,
+    private placesService: PlacesService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -61,9 +61,9 @@ export class LugaresCadastroComponent implements OnInit {
   }
 
   buscaLugar(){
-    this.placesService.getPlace(this.lugar.username).valueChanges({idField : 'uid'}).subscribe(lugar => {
-      if(lugar.length > 0){
-        this.lugar = lugar[0];
+    this.placesService.getPlaceId(this.lugar.username).valueChanges({idField : 'uid'}).subscribe(lugar => {
+      if(!isUndefined(lugar.username)){
+        this.lugar = lugar;
         this.existe = true;
       }else{
         window.alert("Local inexistente")
@@ -105,12 +105,10 @@ export class LugaresCadastroComponent implements OnInit {
 
     this.lugar.username = this.lugar.username.trim();
     this.lugar.food = (this.lugar.food.charAt(0).toUpperCase() + this.lugar.food.slice(1)).trim();
-    // Buscar se ja existe essa comida nessa categoria
 
     if(!this.existe){
       this.lugar.notaMedia = 0;
       this.lugar.finish = false;
-      // this.lugar.uid = this.lugar.username
       this.lugar.uid = this.placesService.createPlace(this.lugar);
     }
 
@@ -140,7 +138,6 @@ export class LugaresCadastroComponent implements OnInit {
       calendar.end = endDate.getFullYear() + '-' + ("0" + (endDate.getMonth() + 1)).slice(-2) + '-' + ("0" + endDate.getDate()).slice(-2)
     }
 
-    // 2021-06-01
     if(isUndefined(this.evento.days)){
       this.evento.days = null
     }

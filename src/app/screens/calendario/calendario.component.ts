@@ -1,10 +1,12 @@
-import { Calendario } from '../../model/calendario';
-import { CalendarService } from './../../services/calendar.service';
 import { Component, OnInit } from '@angular/core';
-import { Calendar, CalendarOptions } from '@fullcalendar/angular'; // useful for typechecking
-import esLocale from '@fullcalendar/core/locales/pt-br';
 import { Observable } from 'rxjs';
-
+// Calendario
+import { CalendarOptions } from '@fullcalendar/angular'; // useful for typechecking
+import esLocale from '@fullcalendar/core/locales/pt-br';
+// Model
+import { Calendario } from '../../model/calendario';
+// Service
+import { CalendarService } from './../../services/calendar.service';
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
@@ -25,8 +27,8 @@ export class CalendarioComponent implements OnInit {
       this.datas = datas;
       this.calendarOptions = {
         initialView: 'dayGridMonth',
-        height: 580,
         locale: esLocale,
+        height: 580,
         events: this.datas,
         eventColor: 'rgba(183, 28, 28)',
         eventTextColor: '#fff',
@@ -38,7 +40,6 @@ export class CalendarioComponent implements OnInit {
           if(window.confirm("Role: " + event.event.title +
           "\nData: " + ("0" + (event.event.start.getDate())).slice(-2) + "/" + ("0" + (event.event.start.getMonth() + 1)).slice(-2) +
           "\n\nVer Role?")){window.location.href = '/menu/view'}
-
           return false;
       },
       }

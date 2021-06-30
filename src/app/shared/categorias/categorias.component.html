@@ -4,12 +4,12 @@
   </div>
 
   <app-slider>
-      <div appSliderItem *ngFor="let lugar of lugares">
-        <a (click)="route(lugar)"><mat-card class="example-card" [style.background-image]="'url('+lugar?.photoUrl+')'">
-          <div class="carousel-caption">
-            <p>{{lugar?.username}}</p>
-          </div>
-        </mat-card></a>
-      </div>
+    <div appSliderItem *ngFor="let lugar of lugares">
+      <a (click)="route(lugar)"><mat-card class="example-card" [style.background-image]="'url('+lugar?.photoUrl+')'">
+        <div class="carousel-caption">
+          <p>{{lugar?.username}}</p>
+        </div>
+      </mat-card></a>
+    </div>
   </app-slider>
 </div>

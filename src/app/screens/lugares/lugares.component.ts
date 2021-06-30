@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+// Model
 import { Place } from 'src/app/model/place';
+// Service
 import { PlacesService } from 'src/app/services/places.service';
 
 @Component({
@@ -13,6 +15,7 @@ export class LugaresComponent implements OnInit {
 
   lugares$: Observable<Place[]>;
   lugares: Place[];
+  lugaresAux: Place[];
 
   melhores: Place[];
   rodizio: Place[];
@@ -20,8 +23,6 @@ export class LugaresComponent implements OnInit {
   delivery: Place[];
   fomos: Place[];
   nFomos: Place[];
-
-  lugaresAux: Place[];
 
   food = ''
 
@@ -64,7 +65,7 @@ export class LugaresComponent implements OnInit {
       lugar => lugar.food.startsWith(this.food.charAt(0).toUpperCase() + this.food.slice(1))
       || lugar.username.startsWith(this.food.toLowerCase())
     )
-      this.separa(this.lugares)
+    this.separa(this.lugares)
   }
 
 }
